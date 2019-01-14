@@ -1,15 +1,26 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
+
 /** Ionic CSS Variables **/
 :root {
-  /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+
+  /** primary e65582 **/ 
+  --ion-color-primary: #e65582;
+  --ion-color-primary-rgb: 230, 85, 130;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #cc547a;
+  --ion-color-primary-tint: #f78bad;
+
+  /** azul **/
+  --ion-color-azul: #3880ff;
+  --ion-color-azul-rgb: 56, 128, 255;
+  --ion-color-azul-contrast: #ffffff;
+  --ion-color-azul-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-shade: #3171e0;
+  --ion-color-azul-tint: #4c8dff;
 
   /** secondary **/
   --ion-color-secondary: #0cd1e8;

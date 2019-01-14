@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/login']">
+        Atras
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <form (ngSubmit)="registrar()"> -->
+    <ion-item>
+        <ion-label position="stacked">Correo</ion-label>
+        <ion-input placeholder='Correo' name='correo' type="email" [(ngModel)]="user.correo" maxlength='42' required='true'></ion-input>
+      </ion-item>
+  
+      <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input placeholder='Nombre completo' name='nombres' type="text" [(ngModel)]="user.nombres" maxlength='42' required='true'></ion-input>
+        </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input placeholder='Contraseña' name='contra' type="password" [(ngModel)]="user.contra" maxlength='42' required='true'></ion-input>
+      </ion-item>
+  
+      <ion-item>
+          <ion-label position="stacked">Nickname</ion-label>
+          <ion-input placeholder='Nombre de usuario' name='nick' type="text" [(ngModel)]="user.nick" maxlength='42' required='true'></ion-input>
+        </ion-item>
+
+      <ion-button [disabled]= "user.correo.length < 10 || user.nombres.length < 9 || user.contra.length < 5 || user.nick.length < 5"
+      expand='block'
+      color='primary'
+      (click)="registrar()">
+        Registrarse
+      </ion-button>
+  <!-- </form> -->
+
+
+</ion-content>

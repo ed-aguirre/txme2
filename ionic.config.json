@@ -1,5 +1,7 @@
 {
   "name": "txme",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
