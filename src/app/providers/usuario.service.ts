@@ -4,6 +4,7 @@ import { LoadingController, ToastController, Platform } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http'; // siempre usar el HTTP DE angular
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -19,9 +20,39 @@ export class UsuarioService {
               private loadCtrl: LoadingController,
               private toastCtrl: ToastController,
               private plt: Platform,
-              private storage: Storage) {
+              private storage: Storage,
+              private router: Router) {
     console.log('us funciona');
+    this.guarda();
+    // ejemplo de función asyncrona
+    const sumaAfter2seg =(a , b) => {
+      return new Promise (resolve => 
+        setTimeout(() => 
+        resolve(a + b),
+        2000 ))
+    }
 
+    const sumaAsync = async() => {
+      const cuatro = await sumaAfter2seg(2,2);
+      const six = await sumaAfter2seg(cuatro,2);
+      const ocho = await sumaAfter2seg(six,2);
+
+      return ocho;
+    }
+
+    sumaAsync().then(tot =>
+       console.log('Promesa', tot)
+       );
+
+  }
+
+  confirmar() {
+    if (this.user_data != null) {
+      this.router.navigate(['tabs/home']);
+    } else {
+
+      this.confirmar();
+    }
   }
 
   async presentToast(data: string) {
@@ -35,7 +66,8 @@ export class UsuarioService {
 
 
   async login( data: any[]  ) {
-    console.log('hola');
+    console.log('logeando..');
+
     const loading = await this.loadCtrl.create({
       message: 'Cargando...',
     });
@@ -43,7 +75,7 @@ export class UsuarioService {
 
     const url = URL_SERVICIOS + 'Login';
 
-      const resp = this.http.post( url, {
+      const resp = await this.http.post( url, {
                   correo: data['correo'],
                   contra: data['contra']
                }).subscribe((res) => {
@@ -72,12 +104,12 @@ export class UsuarioService {
                     console.log(error);
                     });
 
-                  this.bandera = false;
+                  //this.bandera = false;
                   loading.dismiss();
                   return resp;
     }
 
-    async signIn( user: any = []) {
+  async signIn( user: any = []) {
       console.log('registrando...');
       const loading = await this.loadCtrl.create({
         message: 'Cargando...',
@@ -86,7 +118,7 @@ export class UsuarioService {
 
       const url = URL_SERVICIOS + 'Login/registrar';
 
-      const resp = this.http.post( url, {
+      const resp = await this.http.post( url, {
                           correo : user['correo'],
                           nombres: user['nombres'],
                           contra: user['contra'],
@@ -142,6 +174,7 @@ export class UsuarioService {
     logout() {
       this.user_data['token'] = null;
       this.set_user();
+      this.router.navigate(['login']);
     }
 
     cargar_usuario() {
@@ -172,5 +205,15 @@ export class UsuarioService {
         resolve();
       });
       return promesa;
+    }
+
+    guarda(): boolean {
+
+      if ( this.user_data['token'] != null ) {
+        return true;
+      } else {
+        return false;
+      }
+
     }
 }
