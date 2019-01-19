@@ -25,20 +25,20 @@ export class UsuarioService {
     console.log('us funciona');
     this.guarda();
     // ejemplo de función asyncrona
-    const sumaAfter2seg =(a , b) => {
-      return new Promise (resolve => 
-        setTimeout(() => 
+    const sumaAfter2seg = (a , b) => {
+      return new Promise (resolve =>
+        setTimeout(() =>
         resolve(a + b),
-        2000 ))
-    }
+        2000 ));
+    };
 
     const sumaAsync = async() => {
-      const cuatro = await sumaAfter2seg(2,2);
-      const six = await sumaAfter2seg(cuatro,2);
-      const ocho = await sumaAfter2seg(six,2);
+      const cuatro = await sumaAfter2seg(2, 2);
+      const six = await sumaAfter2seg(cuatro, 2);
+      const ocho = await sumaAfter2seg(six, 2);
 
       return ocho;
-    }
+    };
 
     sumaAsync().then(tot =>
        console.log('Promesa', tot)
@@ -104,7 +104,7 @@ export class UsuarioService {
                     console.log(error);
                     });
 
-                  //this.bandera = false;
+                  this.bandera = false;
                   loading.dismiss();
                   return resp;
     }

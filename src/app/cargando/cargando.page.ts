@@ -27,23 +27,23 @@ export class CargandoPage implements OnInit {
   ngOnInit() {
   }
 
-  
+
 
   startApp() {
-      console.log('primera')
+      console.log('primera');
       this._us.cargar_usuario().then(() => {
 
-        //this._us.set_user();
-        console.log('segunda')
+        // this._us.set_user();
+        console.log('segunda');
         // aqui puedo cargar datos de la BD para cargar datos
         if ( localStorage.getItem('activo')) {
-          console.log('aceptado')
+          console.log('aceptado');
           this.router.navigate(['tabs']);
         } else {
           this.router.navigate(['login']);
         }
-      })
-   
+      });
+
   }
 
 }

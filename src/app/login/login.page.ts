@@ -26,10 +26,10 @@ export class LoginPage implements OnInit {
   login( ) {
     this._us.login(this.user).then(() => {
       this._us.confirmar();
-      console.log(this._us.user_data['token']) 
-      //this.router.navigate(["cargando"]);
+      console.log(this._us.user_data['token']);
+      // this.router.navigate(["cargando"]);
     });
-    
+
   }
 
   goRegistro( ) {
