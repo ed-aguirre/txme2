@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 })
 export class UsuarioService {
 
-  user_data: any = {};
+  public user_data: any = {};
+  // tiene que ser publica para que puedas llamar la variable en otros componentes yep...
   mensaje: any;
   bandera: boolean;
 
