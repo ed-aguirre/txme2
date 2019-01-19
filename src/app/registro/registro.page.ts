@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../providers/usuario.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
@@ -16,14 +17,16 @@ export class RegistroPage implements OnInit {
     nick: ''
   };
 
-  constructor( private router: Router, private _us: UsuarioService) {
+  constructor( private router: Router, private _us: UsuarioService,
+               private navCtrl: NavController) {
   }
 
   ngOnInit() {
   }
 
   atras() {
-    this.router.navigate(['login']);
+    this.navCtrl.goBack();
+    // this.router.navigate(['login']);
   }
 
   registrar() {

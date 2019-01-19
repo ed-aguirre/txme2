@@ -5,6 +5,9 @@
 
 /** Ionic CSS Variables **/
 :root {
+  @import url(https://fonts.googleapis.com/css?family=Varela+Round);
+  // $font-family-base: "Oxygen", sans-serif !default;
+  --ion-font-family: "Varela Round", sans-serif;
 
   --ion-tab-bar-color: #f3b8cb;
   // --ion-tab-bar-color-activated: #ffffff;
