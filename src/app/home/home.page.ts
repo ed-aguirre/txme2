@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../providers/usuario.service';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-home',
@@ -8,6 +10,14 @@ import { UsuarioService } from '../providers/usuario.service';
 })
 export class HomePage {
 
-  constructor( public _us: UsuarioService ) {}
+  constructor( public _us: UsuarioService ) {
+  }
+
+  
+ 
+
+ 
+ 
+ 
 
 }
