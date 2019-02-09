@@ -1,9 +1,59 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>encuesta</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
 
+<ion-content >
+  <ion-slides [options]="sliderConfig">
+
+    <ion-slide *ngFor="let i of template, let idx = index" >
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle> {{i.subti}} </ion-card-subtitle>
+          <ion-card-title> Aqui va la pregunta </ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+
+         <ion-list>
+            <ion-radio-group (ionChange)="haber($event, idx)">
+              <ion-list-header>
+                <ion-label>Selecciona una opción:</ion-label>
+              </ion-list-header>
+            
+              <ion-item>
+                <ion-label> {{i.opc}} </ion-label>
+                <ion-radio slot="start" [value]="i.val" ></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                  <ion-label> {{i.opc2}} </ion-label>
+                  <ion-radio slot="start" [value]="i.val2" ></ion-radio>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label> {{i.opc3}} </ion-label>
+                    <ion-radio slot="start" [value]="i.val3" ></ion-radio>
+                  </ion-item>
+            
+            </ion-radio-group>
+          </ion-list>
+
+        </ion-card-content>
+      </ion-card>
+
+    </ion-slide>
+
+  </ion-slides>
+
+  <div padding>
+    <p>Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.</p>
+    <p><b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
+  </div>
+
+  <ion-button padding [disabled]="indice <= 8"
+      expand="block"
+      (click)="alert()"
+      [routerLink]="['/tabs']">
+      Continuar
+  </ion-button>
+  
 </ion-content>
