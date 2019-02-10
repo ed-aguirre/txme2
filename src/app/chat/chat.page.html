@@ -5,5 +5,19 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
 
+    <ion-item-sliding>
+      <ion-item class="chat" [routerLink]="'/chat/' + uid" >
+          <ion-thumbnail slot="start">
+              <img src="../../assets/img/online.png">
+            </ion-thumbnail>
+        <ion-label>Alexa</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option >Bloquear</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  
+  </ion-list>
 </ion-content>

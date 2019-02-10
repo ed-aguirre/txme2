@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatPage implements OnInit {
 
-  constructor() { }
+  uid: any = "ASE45";
+  
+  constructor(  ) { }
 
   ngOnInit() {
   }

@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './registro/registro.module#RegistroPageModule' },
   { path: 'home',     loadChildren: './home/home.module#HomePageModule' },
   { path: 'chat',     loadChildren: './chat/chat.module#ChatPageModule' },
-  { path: 'chatnew',  loadChildren: './chatnew/chatnew.module#ChatnewPageModule' },
+  { path: 'chat/:uid',  loadChildren: './chatnew/chatnew.module#ChatnewPageModule' },
   //{ path: 'perfil',   loadChildren: './perfil/perfil.module#PerfilPageModule' },
   { path: 'encuesta', loadChildren: './encuesta/encuesta.module#EncuestaPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }

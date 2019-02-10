@@ -2,3 +2,13 @@
 ion-title{
     font-size: 35px;
 }
+
+ion-item.chat {
+    cursor: pointer;
+}
+ion-item.chat:active {
+background-color: gray;
+    //box-shadow: 0px 5px #666;
+    transform: translateY(3px);
+
+}

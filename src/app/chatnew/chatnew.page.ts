@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chatnew',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatnewPage implements OnInit {
 
-  constructor() { }
+  id: string;
+  constructor(private route: ActivatedRoute,
+              private navCtrl: NavController ) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('uid')
+  }
+
+  close(){
+    this.navCtrl.goBack();
   }
 
 }
