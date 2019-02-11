@@ -8,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatPage implements OnInit {
 
-  uid: any = "ASE45";
+  /* template: any[] = [
+    {uid: "Alexa"}
+  ]; */
+
+  template: any = [];
   
   constructor(  ) { }
 

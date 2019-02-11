@@ -14,7 +14,7 @@
   // --ion-tab-bar-background: #e65582;
 
   /** primary e65582 **/ 
-  --ion-color-primary: #e65582;
+  --ion-color-primary: #fc739e;
   --ion-color-primary-rgb: 230, 85, 130;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -92,4 +92,18 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #bdbdbd;
   --ion-color-light-tint: #f5f6f9;
+
+  .vacio{
+    position: relative;
+    top:30%;
+    font-size: 13px;
+  }
+  .icon_5x{
+    font-size:100px;
+    color: rgb(196, 196, 196);
+  }
+  .text{
+    font-size: 13px;
+    color:rgb(196, 196, 196);
+  }
 }

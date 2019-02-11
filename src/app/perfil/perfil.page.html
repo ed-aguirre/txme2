@@ -6,9 +6,10 @@
 
 <ion-content padding>
 
-  <ion-card *ngIf="!user.img" class="avatar">
-    <img src="../../assets/img/Avatar_generico.png" alt="">
-  </ion-card>
+    <div text-center>
+        <ion-icon name="contact" mode="ios" class="icon_5x"></ion-icon>
+      </div>   
+
 
   <p>Correo</p>
   <ion-item>
@@ -58,8 +59,7 @@
   <ion-button 
   (click)='_us.logout()'
   color='danger'
-  expand='full'
-  fill="outline">
+  expand='block'>
   <ion-icon slot="start" name="exit"></ion-icon>
     Salir
   </ion-button>

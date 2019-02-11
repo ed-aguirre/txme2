@@ -1,12 +1,70 @@
 <ion-header>
+
   <ion-toolbar>
       <ion-buttons slot="start">
           <ion-back-button (click)="close()"></ion-back-button>
         </ion-buttons>
-    <ion-title>chatnew</ion-title>
+    <ion-title>{{id}}</ion-title>
+    <ion-buttons slot="end">
+        <ion-button 
+        [fill]="tipoBoton" 
+        [color]="colorBoton"
+        (click)="alert()">
+          {{chat.length}} / 30
+        </ion-button>
+      </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content padding>
-  <p> este es el id  {{id}} </p>
+<ion-content fullscreen="true">
+
+  <div text-center *ngIf="chat.length == 0" class="vacio">
+    <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
+    <br>
+    <p class="text">Envíale un mensaje a {{id}}</p> 
+  </div>    
+
+  <ng-container *ngFor="let ch of chat">
+    <ion-card *ngIf="ch.user==1" color="primary" class="caja">
+        <ion-card-content>
+            <p> {{ch.txt}} </p>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="ch.user==0" color="light" class="caja2">
+        <ion-card-content>
+            <p> {{ch.txt}} </p>
+        </ion-card-content>
+    </ion-card>
+    <p [ngClass]="{'time': ch.user == 1,'time2': ch.user == 0 }"> {{ch.time}} </p>
+
+  </ng-container>
 </ion-content>
+
+<ion-footer >
+    <ion-toolbar>
+
+        <ion-item>
+          <ion-textarea 
+          rows="1" 
+          placeholder="Escribe algo aquí"
+          [(ngModel)]="mensaje" 
+          utofocus
+          maxlength="200"></ion-textarea>
+        </ion-item>
+
+        <ion-buttons slot="end">
+            <ion-button 
+            fill="clear" 
+            color="primary" 
+            [disabled]="chat.length >= 30  || mensaje === ''" 
+            (click)="enviar()">
+                <ion-icon name="send" mode="md"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+            
+    </ion-toolbar>
+  </ion-footer>
+
+  
