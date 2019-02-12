@@ -11,32 +11,25 @@
       </div>   
 
 
-  <p>Correo</p>
+  <p>Matricula</p>
   <ion-item>
     <ion-icon name='create' item-start [hidden]="band" class="edit" ></ion-icon>
       <ion-input 
-      [readonly]='band' name='correo' type="email" [(ngModel)]="user.correo" maxlength='42'></ion-input>
+      [readonly]='band' name='matricula' type="text" [(ngModel)]="user.matricula" maxlength='9'></ion-input>
     </ion-item>
 
     <p>Nombre</p>
     <ion-item>
       <ion-icon name='create' item-start [hidden]="band" class="edit" ></ion-icon>
         <ion-input 
-        [readonly]='band' name='nombres' type="text" [(ngModel)]="user.nombres" maxlength='42'></ion-input>
+        [readonly]='band' name='nombre' type="text" [(ngModel)]="user.nombre" maxlength='20'></ion-input>
       </ion-item>
-
-    <p>Nombre de usuario</p>
-    <ion-item>
-      <ion-icon name='create' item-start [hidden]="band" class="edit" ></ion-icon>
-      <ion-input 
-      [readonly]='band' name='nick' type="text"  [(ngModel)]="user.nick" maxlength='42'></ion-input>
-    </ion-item>
 
     <p>Contraseña</p>
     <ion-item >
       <ion-icon name='create' item-start [hidden]="band" class="edit" ></ion-icon>
       <ion-input 
-      [readonly]='band' name='contra' [type]="tipo" [value]="user.contra" [(ngModel)]="user.contra" maxlength='30'></ion-input>
+      [readonly]='band' name='contra' [type]="tipo" [(ngModel)]="user.pass" maxlength='30'></ion-input>
       <ion-icon name='eye' item-end [hidden]="band" class="edit" (click)="ver()"></ion-icon>
     </ion-item>
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../providers/usuario.service';
 import { NavController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -11,10 +12,9 @@ import { NavController } from '@ionic/angular';
 export class RegistroPage implements OnInit {
 
   public user: any = {
-    correo: '',
-    nombres: '',
+    matricula: '',
+    nombre: '',
     contra: '',
-    nick: ''
   };
 
   constructor( private router: Router, private _us: UsuarioService,

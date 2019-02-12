@@ -17,17 +17,27 @@ export class EncuestaPage implements OnInit {
 
   data:number[]= []
 
-  template = [
-    {subti: "Pregunta 1", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3 },
-    {subti: "Pregunta 2", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 3", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 4", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 5", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 6", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 7", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 8", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 9", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
-    {subti: "Pregunta 10", opc: "valor 1", opc2: "valor 2", opc3: "valor 3", val: 1, val2: 2 , val3: 3},
+  private template = [
+    {id: "1",  question: "¿Qué haces cuando estas aburrido?",
+      opc: "Ver series y películas", opc2: "Platicar con amigos", opc3: "Dormir", val: 1, val2: 2 , val3: 3 },
+    {id: "2",  question: "¿A qué horario frecuentas salir?",
+      opc: "De noche", opc2: "Casi no salgo", opc3: "Mañana, Tarde y Noche.", val: 1, val2: 2 , val3: 3},
+    {id: "3",  question: "¿Consideras importante la escuela?", 
+      opc: "Super importante", opc2: "Me da igual", opc3: "Qué es una escuela?", val: 1, val2: 2 , val3: 3},
+    {id: "4",  question: "¿Cúando ves a una persona en la calle de pocos recursos, cómo reaccionas?", 
+      opc: "Trato de ayudar con lo que pueda", opc2: "Le doy dinero", opc3: "Nada", val: 1, val2: 2 , val3: 3},
+    {id: "5",  question: "¿Te gustan los animales?", 
+      opc: "Tengo mascotas y si", opc2: "Tengo mascotas y no", opc3: "Para nada", val: 1, val2: 2 , val3: 3},
+    {id: "6",  question: "¿Consideras que la carrera que estudias es la mejor de todas?", 
+      opc: "Por supuesto", opc2: "Me da igual", opc3: "Todas las carreras son importantes", val: 1, val2: 2 , val3: 3},
+    {id: "7",  question: "Selecciona la cita perfecta:", 
+      opc: "Pizza, Sabritas, Helado y Netflix", opc2: "Plaza, Cine, Marquesitas o Esquite", opc3: "Ir por un cafe y platicar", val: 1, val2: 2 , val3: 3},
+    {id: "8",  question: "¿Te gusta bailar?", 
+      opc: "Si, bailo de todo", opc2: "No", opc3: "No se bailar, pero hago el intento", val: 1, val2: 2 , val3: 3},
+    {id: "9",  question: "Terminando la carrera, ¿que te gustaría hacer?", 
+      opc: "Seguir estudiando", opc2: "Buscar un trabajo", opc3: "Emprender o viajar", val: 1, val2: 2 , val3: 3},
+    {id: "10", question: "Esta preguntá es super sería. ¿Te gustaria tener hijos en un futuro?", 
+      opc: "Espera.. khe?", opc2: "Super si", opc3: "En un futuro muy muy lejano pero si.", val: 1, val2: 2 , val3: 3},
   ]
 
   constructor(public alertCtrl: AlertController) { 

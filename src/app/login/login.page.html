@@ -12,8 +12,8 @@
 
     <ion-card-content >
       <ion-item>
-        <ion-label color="primary" position="floating">Correo Electronico</ion-label>
-        <ion-input type="email" [(ngModel)]="user.correo" maxlength='30'></ion-input>
+        <ion-label color="primary" position="floating">Matricula</ion-label>
+        <ion-input type="text" [(ngModel)]="user.matricula" maxlength='9'></ion-input>
       </ion-item>
 
       <ion-item>
@@ -21,7 +21,7 @@
         <ion-input type="password" [(ngModel)]="user.contra" maxlength='30'></ion-input>
       </ion-item>
 
-      <ion-button [disabled]="user.correo.length < 10  || user.contra.length < 5"
+      <ion-button [disabled]="user.matricula.length < 9  || user.contra.length < 5"
       expand="block"
       (click)="login()">
       Iniciar Sesion

@@ -7,8 +7,8 @@
 
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle> {{i.subti}} </ion-card-subtitle>
-          <ion-card-title> Aqui va la pregunta </ion-card-title>
+          <ion-card-subtitle> Pregunta {{i.id}} </ion-card-subtitle>
+          <ion-card-title style="font-size: 20px"> {{i.question}} </ion-card-title>
         </ion-card-header>
       
         <ion-card-content>
@@ -20,17 +20,17 @@
               </ion-list-header>
             
               <ion-item>
-                <ion-label> {{i.opc}} </ion-label>
+                <ion-label text-wrap> {{i.opc}} </ion-label>
                 <ion-radio slot="start" [value]="i.val" ></ion-radio>
               </ion-item>
 
               <ion-item>
-                  <ion-label> {{i.opc2}} </ion-label>
+                  <ion-label text-wrap> {{i.opc2}} </ion-label>
                   <ion-radio slot="start" [value]="i.val2" ></ion-radio>
                 </ion-item>
 
                 <ion-item>
-                    <ion-label> {{i.opc3}} </ion-label>
+                    <ion-label text-wrap> {{i.opc3}} </ion-label>
                     <ion-radio slot="start" [value]="i.val3" ></ion-radio>
                   </ion-item>
             
@@ -44,10 +44,10 @@
 
   </ion-slides>
 
-  <div padding>
-    <p>Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.</p>
-    <p><b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
-  </div>
+    <div padding>
+      <p>Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.</p>
+      <p><b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
+    </div>
 
   <ion-button padding [disabled]="indice <= 8"
       expand="block"

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UsuarioService {
 
-  public user_data: any = {};
+  public user_data: any[] = [];
   // tiene que ser publica para que puedas llamar la variable en otros componentes yep...
   mensaje: any;
   bandera: boolean;
@@ -47,8 +47,9 @@ export class UsuarioService {
 
   }
 
+  /* no sirve esta funcion de aqui abajo...*/
   confirmar() {
-    if (this.user_data != null) {
+    if (this.user_data) {
       this.router.navigate(['tabs/home']);
     } else {
 
@@ -68,46 +69,47 @@ export class UsuarioService {
 
   async login( data: any[]  ) {
     console.log('logeando..');
+      const loading = await this.loadCtrl.create({
+        message: 'Cargando...',
+      });
+      loading.present();
 
-    const loading = await this.loadCtrl.create({
-      message: 'Cargando...',
-    });
-    loading.present();
-
-    const url = URL_SERVICIOS + 'Login';
-
-      const resp = await this.http.post( url, {
-                  correo: data['correo'],
-                  contra: data['contra']
-               }).subscribe((res) => {
-
-                  console.log(res);
-                  /* var objeto convertido en array, cool*/
-                      const result = Object.keys(res).map(function(key) {
-                        return [Number(key), res[key]];
+      return new Promise (resolve =>{
+      
+      const url = URL_SERVICIOS + 'Login';
+  
+        const resp =  this.http.post( url, {
+                    matricula: data['matricula'],
+                    contra: data['contra']
+                 }).subscribe((res:any[]) => {
+  
+                    console.log(res);
+                    /* var objeto convertido en array, cool*/
+                        const result = Object.keys(res).map(function(key) {
+                          return [Number(key), res[key]];
+                        });
+                        result.forEach(element => {
+                            this.mensaje = element[1];
+                            if ( this.mensaje === true) {
+                              this.bandera = element[1];
+                            }
+                        });
+                        /* aqui acaba*/
+                      if (this.bandera === true) {
+  
+                        this.presentToast(this.mensaje);
+  
+                      } else {
+                        this.user_data = res;
+                        this.set_user();
+                        this.router.navigate(['cargando'])
+                        }
+                    }, error => {
+                      console.log(error);
                       });
-                      result.forEach(element => {
-                          this.mensaje = element[1];
-                          if ( this.mensaje === true) {
-                            this.bandera = element[1];
-                          }
-                      });
-                      /* aqui acaba*/
-                    if (this.bandera === true) {
-
-                      this.presentToast(this.mensaje);
-
-                    } else {
-                      this.user_data = res;
-                      this.set_user();
-                      }
-                  }, error => {
-                    console.log(error);
-                    });
-
-                  this.bandera = false;
-                  loading.dismiss();
-                  return resp;
+                    this.bandera = false;
+                    loading.dismiss();
+      })
     }
 
   async signIn( user: any = []) {
@@ -120,10 +122,9 @@ export class UsuarioService {
       const url = URL_SERVICIOS + 'Login/registrar';
 
       const resp = await this.http.post( url, {
-                          correo : user['correo'],
-                          nombres: user['nombres'],
+                          matricula : user['matricula'],
+                          nombre: user['nombre'],
                           contra: user['contra'],
-                          nick: user['nick']
                         }).subscribe((res) => {
                           console.log(res);
 
