@@ -13,9 +13,9 @@ export class HomePage {
   constructor( public _us: UsuarioService ) {
   }
 
-  
- 
-
+  verificar(){
+    this._us.verifica();
+  }
  
  
  

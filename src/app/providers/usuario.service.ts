@@ -47,7 +47,7 @@ export class UsuarioService {
 
   }
 
-  /* no sirve esta funcion de aqui abajo...*/
+  /* SI sirve!*/
   confirmar() {
     if (this.user_data) {
       this.router.navigate(['tabs/home']);
@@ -57,8 +57,8 @@ export class UsuarioService {
     }
   }
 
-  async presentToast(data: string) {
-    console.log();
+  async presentToast(data: any) {
+    console.log(data);
     const toast = await this.toastCtrl.create({
       message: data,
       duration: 2000
@@ -85,24 +85,24 @@ export class UsuarioService {
   
                     console.log(res);
                     /* var objeto convertido en array, cool*/
-                        const result = Object.keys(res).map(function(key) {
-                          return [Number(key), res[key]];
+                         const result = Object.keys(data).map(function(key) {
+                          return [Number(key), data[key]];
                         });
                         result.forEach(element => {
-                            this.mensaje = element[1];
-                            if ( this.mensaje === true) {
-                              this.bandera = element[1];
+                          this.mensaje = element[1];
+                            if ( this.bandera === true) {
+                              this.mensaje = element[1];
                             }
                         });
-                        /* aqui acaba*/
+                        /* aqui acaba*/ 
                       if (this.bandera === true) {
-  
+                        console.log(this.bandera)
                         this.presentToast(this.mensaje);
   
                       } else {
                         this.user_data = res;
                         this.set_user();
-                        this.router.navigate(['cargando'])
+                        //this.confirmar()
                         }
                     }, error => {
                       console.log(error);
@@ -126,21 +126,11 @@ export class UsuarioService {
                           nombre: user['nombre'],
                           contra: user['contra'],
                         }).subscribe((res) => {
+
                           console.log(res);
+                          this.objetoArreglo(res);
 
-                          /* var objeto convertido en array, cool*/
-                          const result = Object.keys(res).map(function(key) {
-                           return [Number(key), res[key]];
-                           });
-                          result.forEach(element => {
-                          this.mensaje = element[1];
-                          if ( this.mensaje === true) {
-                            this.bandera = element[1];
-                          }
-                        });
-                      /* aqui acaba*/
                       if (this.bandera === true) {
-
                         this.presentToast(this.mensaje);
 
                       } else {
@@ -150,6 +140,7 @@ export class UsuarioService {
                   }, err => {
                     this.presentToast(err.error['Mensaje']);
                   });
+                  loading.dismiss();
     }
 
     set_user() {
@@ -210,12 +201,71 @@ export class UsuarioService {
     }
 
     guarda(): boolean {
-
+      /*creo quue era para el guard...*/
       if ( this.user_data['token'] != null ) {
         return true;
       } else {
         return false;
       }
 
+    }
+
+    objetoArreglo(data){
+       /* var objeto convertido en array, cool*/
+       const result = Object.keys(data).map(function(key) {
+        return [Number(key), data[key]];
+      });
+      result.forEach(element => {
+        this.mensaje = element[1];
+          if ( this.bandera === true) {
+            this.mensaje = element[1];
+          }
+      });
+    }
+
+  /**  Encuesta  **/
+    async verifica(){
+      const loading = await this.loadCtrl.create({
+        message: 'Cargando...',
+      });
+      loading.present();
+
+      const url = URL_SERVICIOS + 'Encuesta';
+
+      const ans = await this.http.post(url,{
+        matricula: this.user_data['matricula']
+      }).subscribe((data)=>{
+        console.log(data)
+
+        this.objetoArreglo(data)
+        console.log(this.bandera);
+        this.banderilla();
+        if( this.bandera === true ){
+          console.log(this.mensaje)
+          this.presentToast(this.mensaje);
+        
+        }else{
+          this.presentToast(this.mensaje);
+        }
+      },error =>{
+        console.log(error);
+      });
+      loading.dismiss();
+    }
+
+    async banderilla(){
+      const loading = await this.loadCtrl.create({
+        message: 'Verificando...',
+      });
+      loading.present();
+
+      if( this.bandera === null ){
+        this.banderilla()
+      }else if( this.bandera === false){
+        this.router.navigate(['encuesta'])
+      }else{
+        return;
+      }
+      loading.dismiss();
     }
 }

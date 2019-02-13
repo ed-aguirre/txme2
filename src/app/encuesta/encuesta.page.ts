@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, AlertController } from '@ionic/angular';
+import { IonSlides, AlertController, LoadingController, NavController } from '@ionic/angular';
 
+import { URL_SERVICIOS } from '../../config/url.service';
+import { UsuarioService } from '../providers/usuario.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-encuesta',
@@ -13,8 +17,8 @@ export class EncuestaPage implements OnInit {
 
   indice: number = 0;
   temporal:number = 0;
-  //bandera:boolean = true; // false = si deja, true = no deja
-
+  bandera:boolean; // false = si deja, true = no deja
+  mensaje:string;
   data:number[]= []
 
   private template = [
@@ -40,9 +44,31 @@ export class EncuestaPage implements OnInit {
       opc: "Espera.. khe?", opc2: "Super si", opc3: "En un futuro muy muy lejano pero si.", val: 1, val2: 2 , val3: 3},
   ]
 
-  constructor(public alertCtrl: AlertController) { 
+  constructor(public alertCtrl: AlertController,
+              public _us: UsuarioService,
+              public loadCtrl: LoadingController,
+              private http: HttpClient,
+              public router: Router) { 
     
   }
+  
+  ngOnInit() {
+    let slides = document.querySelector('ion-slides');
+    slides.options = {
+      effect: 'flip'
+      }
+    this.slides.lockSwipeToNext(true)
+    
+    this.slides.ionSlideDidChange.subscribe(() =>{
+      this.data[this.indice] = this.temporal;
+
+      console.log(this.data);
+      //console.log(this.indice);
+      this.slides.lockSwipeToNext(true)
+      
+    });
+  }
+
   async alert() {
     const alert = await this.alertCtrl.create({
       header: 'Listo',
@@ -54,22 +80,53 @@ export class EncuestaPage implements OnInit {
     await alert.present();
   }
 
-  ngOnInit() {
-    let slides = document.querySelector('ion-slides');
-    slides.options = {
-      effect: 'flip'
-    }
-    this.slides.lockSwipeToNext(true)
-    
-    
-    this.slides.ionSlideDidChange.subscribe(() =>{
-      this.data[this.indice] = this.temporal;
-
-      //console.log(this.data);
-      //console.log(this.indice);
-      this.slides.lockSwipeToNext(true)
-      
+  async alertErr(data: string) {
+    console.log();
+    const toast = await this.alertCtrl.create({
+      header: 'Ha ocurrido un error',
+      message: data,
+      buttons: ['OK']
     });
+    toast.present();
+  }
+
+  async send() {
+    const loading = await this.loadCtrl.create({
+      message: 'Cargando...',
+    });
+    loading.present();
+
+    let datos: string = this.data.toString()
+
+    const url = URL_SERVICIOS + 'Encuesta/enviar';
+
+    const ans = await this.http.post(url,{
+      matricula: this._us.user_data['matricula'],
+      res: datos
+    }).subscribe((data) =>{
+      console.log(data);
+       /* var objeto convertido en array, cool*/
+       const result = Object.keys(data).map(function(key) {
+        return [Number(key), data[key]];
+      });
+      result.forEach(element => {
+        this.mensaje = element[1];
+          if ( this.bandera === true) {
+            this.mensaje = element[1];
+          }
+      });
+      /* aqui acaba*/
+      if (this.bandera === true) {
+        this.alertErr(this.mensaje);
+        
+      }else{
+        this.alert()
+        this.router.navigate(['tabs/home']);
+      }
+    },error =>{
+      console.log(error);
+    })
+    loading.dismiss();
   }
 
   haber(e, index:number){

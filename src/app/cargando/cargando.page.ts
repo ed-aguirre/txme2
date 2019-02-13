@@ -19,9 +19,9 @@ export class CargandoPage implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar ) {
 
-      setTimeout(() => {
-        this.startApp();
-      }, 2000);
+    
+    this.startApp();
+   
   }
 
   ngOnInit() {
