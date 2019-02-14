@@ -32,13 +32,7 @@ export class LoginPage implements OnInit {
    } */
 
    login() {
-    return new Promise(resolve => {
-      this._us.login(this.user).then(() => {
-        //this._us.confirmar();
-        console.log(this._us.user_data['token']);
-       
-      });
-    });
+    this._us.PRUEBA(this.user)
   }
 
   goRegistro( ) {

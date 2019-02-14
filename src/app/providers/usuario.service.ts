@@ -5,6 +5,8 @@ import { LoadingController, ToastController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http'; // siempre usar el HTTP DE angular
 import { Router } from '@angular/router';
+import { async } from 'q';
+import { serializePaths } from '@angular/router/src/url_tree';
 
 
 @Injectable({
@@ -12,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UsuarioService {
 
-  public user_data: any[] = [];
+  public user_data: any[];
   // tiene que ser publica para que puedas llamar la variable en otros componentes yep...
   mensaje: any;
   bandera: boolean;
@@ -23,8 +25,7 @@ export class UsuarioService {
               private plt: Platform,
               private storage: Storage,
               private router: Router) {
-    console.log('us funciona');
-    this.guarda();
+    //this.guarda();
     // ejemplo de función asyncrona
     const sumaAfter2seg = (a , b) => {
       return new Promise (resolve =>
@@ -66,6 +67,43 @@ export class UsuarioService {
     toast.present();
   }
 
+  PRUEBA(DATOS:any[]){
+    const url = URL_SERVICIOS +'Login' ;
+
+    const loggear = (data:any[]) => {
+      return new Promise (res => 
+      this.http.post(url, {
+        matricula: data['matricula'],
+        contra: data['contra']
+      }).subscribe((resp:any[])=>{
+          console.log(resp);
+          this.user_data = resp
+        }, error=> {
+          console.log(error);
+        })
+      )
+    };
+
+    const LOGINasync = async(da:any[]) => {
+      console.log(da)
+      const uno = await loggear(da);
+      const dos = await this.vamonos();
+      return dos;
+   }
+
+   LOGINasync(DATOS).then(tot =>{
+    console.log(this.user_data)
+   })
+  }
+  
+  vamonos(){
+    console.log(this.user_data);
+    if( this.user_data ) {
+    this.router.navigate(['tabs/home'])
+    }else{
+      console.log(this.user_data);
+    }
+  }
 
   async login( data: any[]  ) {
     console.log('logeando..');
