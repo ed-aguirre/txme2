@@ -67,28 +67,48 @@ export class UsuarioService {
     toast.present();
   }
 
-  PRUEBA(DATOS:any[]){
+  async LOGIN(DATOS:any[]){
+      const loading = await this.loadCtrl.create({
+        message: 'Cargando...',
+      });
+      loading.present();
+      
     const url = URL_SERVICIOS +'Login' ;
 
     const loggear = (data:any[]) => {
-      return new Promise (res => 
+      return new Promise (resolve => 
       this.http.post(url, {
         matricula: data['matricula'],
         contra: data['contra']
       }).subscribe((resp:any[])=>{
-          console.log(resp);
-          this.user_data = resp
+            //console.log(resp);
+            if( resp['error']== true ) {
+              this.presentToast(resp['Mensaje'])
+            }
+            this.user_data = resp
+            resolve(resp);
         }, error=> {
           console.log(error);
         })
       )
     };
 
+    const  vamonos = () =>{
+      if( this.user_data['error'] == false ) {
+        this.router.navigate(['tabs/home'])
+      }else{
+        this.router.navigate(['login'])
+      }
+    }
+
     const LOGINasync = async(da:any[]) => {
-      console.log(da)
       const uno = await loggear(da);
-      const dos = await this.vamonos();
-      return dos;
+      //console.log(uno)
+      const dos = await this.set_user()
+      console.log('Guardando usuario');
+      const tres = await vamonos();
+      loading.dismiss();
+      return tres
    }
 
    LOGINasync(DATOS).then(tot =>{
@@ -96,59 +116,6 @@ export class UsuarioService {
    })
   }
   
-  vamonos(){
-    console.log(this.user_data);
-    if( this.user_data ) {
-    this.router.navigate(['tabs/home'])
-    }else{
-      console.log(this.user_data);
-    }
-  }
-
-  async login( data: any[]  ) {
-    console.log('logeando..');
-      const loading = await this.loadCtrl.create({
-        message: 'Cargando...',
-      });
-      loading.present();
-
-      return new Promise (resolve =>{
-      
-      const url = URL_SERVICIOS + 'Login';
-  
-        const resp =  this.http.post( url, {
-                    matricula: data['matricula'],
-                    contra: data['contra']
-                 }).subscribe((res:any[]) => {
-  
-                    console.log(res);
-                    /* var objeto convertido en array, cool*/
-                         const result = Object.keys(data).map(function(key) {
-                          return [Number(key), data[key]];
-                        });
-                        result.forEach(element => {
-                          this.mensaje = element[1];
-                            if ( this.bandera === true) {
-                              this.mensaje = element[1];
-                            }
-                        });
-                        /* aqui acaba*/ 
-                      if (this.bandera === true) {
-                        console.log(this.bandera)
-                        this.presentToast(this.mensaje);
-  
-                      } else {
-                        this.user_data = res;
-                        this.set_user();
-                        //this.confirmar()
-                        }
-                    }, error => {
-                      console.log(error);
-                      });
-                    this.bandera = false;
-                    loading.dismiss();
-      })
-    }
 
   async signIn( user: any = []) {
       console.log('registrando...');
@@ -181,7 +148,7 @@ export class UsuarioService {
                   loading.dismiss();
     }
 
-    set_user() {
+    set_user = async() => {
 
       if (this.plt.is('cordova')) {
         // console.log("cel");
@@ -254,7 +221,7 @@ export class UsuarioService {
         return [Number(key), data[key]];
       });
       result.forEach(element => {
-        this.mensaje = element[1];
+        this.bandera = element[1];
           if ( this.bandera === true) {
             this.mensaje = element[1];
           }

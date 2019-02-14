@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
    } */
 
    login() {
-    this._us.PRUEBA(this.user)
+    this._us.LOGIN(this.user)
   }
 
   goRegistro( ) {
