@@ -26,29 +26,11 @@ export class UsuarioService {
               private storage: Storage,
               private router: Router) {
     //this.guarda();
-    // ejemplo de función asyncrona
-    const sumaAfter2seg = (a , b) => {
-      return new Promise (resolve =>
-        setTimeout(() =>
-        resolve(a + b),
-        2000 ));
-    };
-
-    const sumaAsync = async() => {
-      const cuatro = await sumaAfter2seg(2, 2);
-      const six = await sumaAfter2seg(cuatro, 2);
-      const ocho = await sumaAfter2seg(six, 2);
-
-      return ocho;
-    };
-
-    sumaAsync().then(tot =>
-       console.log('Promesa', tot)
-       );
+    
 
   }
 
-  /* SI sirve!*/
+  /* Creo que no sirve...*/
   confirmar() {
     if (this.user_data) {
       this.router.navigate(['tabs/home']);
@@ -67,7 +49,7 @@ export class UsuarioService {
     toast.present();
   }
 
-  async LOGIN(DATOS:any[]){
+  async LOGIN(datos:any[]){
       const loading = await this.loadCtrl.create({
         message: 'Cargando...',
       });
@@ -78,7 +60,7 @@ export class UsuarioService {
     const loggear = (data:any[]) => {
       return new Promise (resolve => 
       this.http.post(url, {
-        matricula: data['matricula'],
+        matricula: data['matricula'].toUpperCase(),
         contra: data['contra']
       }).subscribe((resp:any[])=>{
             //console.log(resp);
@@ -89,6 +71,7 @@ export class UsuarioService {
             resolve(resp);
         }, error=> {
           console.log(error);
+          loading.dismiss();
         })
       )
     };
@@ -103,7 +86,7 @@ export class UsuarioService {
 
     const LOGINasync = async(da:any[]) => {
       const uno = await loggear(da);
-      //console.log(uno)
+      console.log(uno)
       const dos = await this.set_user()
       console.log('Guardando usuario');
       const tres = await vamonos();
@@ -111,42 +94,65 @@ export class UsuarioService {
       return tres
    }
 
-   LOGINasync(DATOS).then(tot =>{
+   LOGINasync(datos).then(fin =>{
     console.log(this.user_data)
    })
   }
-  
 
-  async signIn( user: any = []) {
-      console.log('registrando...');
-      const loading = await this.loadCtrl.create({
-        message: 'Cargando...',
-      });
-      loading.present();
+  async SIGNIN(datos:any[]) {
+    const loading = await this.loadCtrl.create({
+      message: 'Cargando...',
+    });
+    loading.present();
 
-      const url = URL_SERVICIOS + 'Login/registrar';
+    const url = URL_SERVICIOS + 'Login/registrar';
 
-      const resp = await this.http.post( url, {
-                          matricula : user['matricula'],
-                          nombre: user['nombre'],
-                          contra: user['contra'],
-                        }).subscribe((res) => {
+    const signer = (data:any[]) => {
+      return new Promise (resolve => {
+        this.http.post(url, {
+          matricula: data['matricula'].toUpperCase(),
+          nombre: data['nombre'],
+          contra: data['contra'],
+          gen: data['gen']
+        }).subscribe((resp:any) =>{
+            if( resp['error'] == true ) {
+              this.presentToast(resp['Mensaje']);
+             
+            }else {
+              this.presentToast("Usuario registrado correctamente.");
+            }
+            this.user_data = resp
+            resolve(resp);
+        }, error =>{
+          loading.dismiss();
+          console.log('Ocurrio un error: '+ error);
+        })
+      })
+    };
 
-                          console.log(res);
-                          this.objetoArreglo(res);
+    const vamonos = () =>{
+      if( this.user_data['error'] === true ) {
+        console.log("Vuelve a intentarlo!")
+      }else{
+        this.router.navigate(['registrar'])
+      }
+    };
 
-                      if (this.bandera === true) {
-                        this.presentToast(this.mensaje);
-
-                      } else {
-
-                        /* aqui va el nuevo LOGIN*/
-                      }
-                  }, err => {
-                    this.presentToast(err.error['Mensaje']);
-                  });
-                  loading.dismiss();
+    const SIGNINasync = async(data:any[]) =>{
+      const uno = await signer(data);
+      console.log(uno);
+      const dos = await vamonos();
+      console.log("Registro asincrono completo");
+      loading.dismiss();
+      return dos
     }
+
+    SIGNINasync(datos).then( fin =>{
+      console.log(fin); //este console imprime un undefined pero esta ok
+    })
+
+  }
+  
 
     set_user = async() => {
 
@@ -215,62 +221,55 @@ export class UsuarioService {
 
     }
 
-    objetoArreglo(data){
-       /* var objeto convertido en array, cool*/
-       const result = Object.keys(data).map(function(key) {
-        return [Number(key), data[key]];
-      });
-      result.forEach(element => {
-        this.bandera = element[1];
-          if ( this.bandera === true) {
-            this.mensaje = element[1];
-          }
-      });
-    }
 
   /**  Encuesta  **/
-    async verifica(){
-      const loading = await this.loadCtrl.create({
-        message: 'Cargando...',
-      });
-      loading.present();
-
-      const url = URL_SERVICIOS + 'Encuesta';
-
-      const ans = await this.http.post(url,{
-        matricula: this.user_data['matricula']
-      }).subscribe((data)=>{
-        console.log(data)
-
-        this.objetoArreglo(data)
-        console.log(this.bandera);
-        this.banderilla();
-        if( this.bandera === true ){
-          console.log(this.mensaje)
-          this.presentToast(this.mensaje);
-        
-        }else{
-          this.presentToast(this.mensaje);
-        }
-      },error =>{
-        console.log(error);
-      });
-      loading.dismiss();
-    }
-
-    async banderilla(){
+    async VERIFICAR(datos:string){
       const loading = await this.loadCtrl.create({
         message: 'Verificando...',
       });
       loading.present();
 
-      if( this.bandera === null ){
-        this.banderilla()
-      }else if( this.bandera === false){
-        this.router.navigate(['encuesta'])
-      }else{
-        return;
-      }
-      loading.dismiss();
+      const url = URL_SERVICIOS + 'Encuesta';
+
+      const ver = (datos:string) => {
+        return new Promise(resolve => 
+          this.http.post(url, {
+            matricula: datos
+          }).subscribe((resp:any[])=> {
+              if( resp['error'] == false ){
+                this.presentToast(resp['Mensaje']);
+               
+              }else{
+                this.presentToast(resp['Mensaje']);
+               
+              }
+              resolve(resp)
+          }, error =>{
+            console.log('Ocurrio un error: '+ error);
+            loading.dismiss();
+          })
+        )
+      };
+
+      const vamonos = (band: any ={}) =>{
+        console.log(band)
+        if( band['error'] == false ) {
+          this.router.navigate(['encuesta'])
+        }else{
+          this.router.navigate(['tabs/home'])
+        }
+      };
+
+      const VERIFIasync = async(datos:string) =>{
+        const uno = await ver(datos);
+        const dos = await vamonos(uno);
+        loading.dismiss();
+        return dos;
+      };
+
+      VERIFIasync(datos).then( fin =>{
+        console.log(fin)
+      })
     }
+
 }

@@ -15,6 +15,7 @@ export class RegistroPage implements OnInit {
     matricula: '',
     nombre: '',
     contra: '',
+    gen: ''
   };
 
   constructor( private router: Router, private _us: UsuarioService,
@@ -26,12 +27,12 @@ export class RegistroPage implements OnInit {
 
   atras() {
     this.navCtrl.goBack();
-    // this.router.navigate(['login']);
   }
 
   registrar() {
-    this._us.signIn(this.user);
-    this.router.navigate(['cargando']);
+    this._us.SIGNIN(this.user);
+    //this.router.navigate(['cargando']);
   }
+
 
 }

@@ -44,16 +44,16 @@
 
   </ion-slides>
 
-    <div padding>
-      <p>Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.</p>
-      <p><b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
-    </div>
+    
+      <p padding style="justify-content: center;">Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.
+      <b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
+      <ion-button [disabled]="indice <= 8"
+          size="large"
+          expand="full"
+          (click)="ENVIAR()"
+          [routerLink]="['/tabs']">
+          Continuar
+      </ion-button>
 
-  <ion-button padding [disabled]="indice <= 8"
-      expand="block"
-      (click)="send()"
-      [routerLink]="['/tabs']">
-      Continuar
-  </ion-button>
   
 </ion-content>

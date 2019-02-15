@@ -1,6 +1,15 @@
 <ion-header no-border>
   <ion-toolbar mode="md">
     <ion-title>perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+      fill="outline" 
+      color="danger"
+      (click)="_us.logout()">
+      <ion-icon slot="end" name="exit"></ion-icon>
+       Salir
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -47,14 +56,6 @@
       color='secondary'>
         Aceptar cambios
       </ion-button>
-    <br><br>
 
-  <ion-button 
-  (click)='_us.logout()'
-  color='danger'
-  expand='block'>
-  <ion-icon slot="start" name="exit"></ion-icon>
-    Salir
-  </ion-button>
 
 </ion-content>

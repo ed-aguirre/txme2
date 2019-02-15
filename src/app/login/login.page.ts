@@ -12,7 +12,7 @@ import { UsuarioService } from '../providers/usuario.service';
 export class LoginPage implements OnInit {
 
   public user: any = {
-    matricula: 'S17016273',
+    matricula: 's17016273',
     contra: '123456'
   };
 
@@ -23,13 +23,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-   /*login( ) {
-     this._us.login(this.user).then(() => {
-      //this._us.confirmar();
-      console.log(this._us.user_data['token']);
-     
-    });
-   } */
 
    login() {
     this._us.LOGIN(this.user)

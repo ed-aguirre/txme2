@@ -14,7 +14,7 @@ export class HomePage {
   }
 
   verificar(){
-    this._us.verifica();
+    this._us.VERIFICAR(this._us.user_data['matricula']);
   }
  
  
