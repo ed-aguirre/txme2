@@ -96,7 +96,7 @@ export class EncuestaPage implements OnInit {
     });
     loading.present();
 
-    let val: string = this.test.toString()
+    let val: string = this.test.join('');
 
     const url = URL_SERVICIOS + 'Encuesta/enviar';
 
