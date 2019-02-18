@@ -4,22 +4,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
 
-    <div text-center *ngIf="template.length == 0" class="vacio">
+    <div text-center *ngIf="_us.amigos.length == 0" class="vacio">
         <ion-icon name="help" mode="ios" class="icon_5x"></ion-icon>
         <br>
         <p class="text">No tienes match aún</p> 
       </div>   
 
-  <ion-list *ngFor="let f of template">
+  <ion-list *ngFor="let f of _us.amigos">
     <ion-item-sliding>
 
-      <ion-item class="chat" [routerLink]="'/chat/' + f.uid" >
+      <ion-item class="chat" [routerLink]="'/chat/' + f.id" >
           <ion-thumbnail slot="start">
-              <img src="../../assets/img/Corazón.png">
+              <img  src="../../assets/img/Corazón.png">
             </ion-thumbnail>
-        <ion-label> {{f.uid}} </ion-label>
+        <ion-label> {{f.id}} </ion-label>
       </ion-item>
 
       <ion-item-options side="end">

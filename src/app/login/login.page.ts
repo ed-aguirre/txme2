@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
   }
 
   goRegistro( ) {
-    
+
     this.router.navigate(['registro']);
   }
 

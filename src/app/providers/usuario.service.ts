@@ -19,18 +19,19 @@ export class UsuarioService {
   mensaje: any;
   bandera: boolean;
 
+  public amigos: any[] = [];
+
   constructor(private http: HttpClient,
               private loadCtrl: LoadingController,
               private toastCtrl: ToastController,
               private plt: Platform,
               private storage: Storage,
               private router: Router) {
-    //this.guarda();
-    
+    // this.guarda();
 
   }
 
-  /* Creo que no sirve...*/
+  /* Creo que no sirve...
   confirmar() {
     if (this.user_data) {
       this.router.navigate(['tabs/home']);
@@ -38,7 +39,7 @@ export class UsuarioService {
 
       this.confirmar();
     }
-  }
+  }*/
 
   async presentToast(data: any) {
     console.log(data);
@@ -49,36 +50,36 @@ export class UsuarioService {
     toast.present();
   }
 
-  async LOGIN(datos:any[]){
+  async LOGIN(datos: any[]) {
       const loading = await this.loadCtrl.create({
         message: 'Cargando...',
       });
       loading.present();
-      
-    const url = URL_SERVICIOS +'Login' ;
 
-    const loggear = (data:any[]) => {
-      return new Promise (resolve => 
+    const url = URL_SERVICIOS + 'Login' ;
+
+    const loggear = (data: any[]) => {
+      return new Promise (resolve =>
       this.http.post(url, {
         matricula: data['matricula'].toUpperCase(),
         contra: data['contra']
-      }).subscribe((resp:any[])=>{
-            //console.log(resp);
-            if( resp['error']== true ) {
-              this.presentToast(resp['Mensaje'])
+      }).subscribe((resp: any[]) => {
+            // console.log(resp);
+            if( resp['error'] == true ) {
+              this.presentToast(resp['Mensaje']);
             }
-            this.user_data = resp
+            this.user_data = resp;
             resolve(resp);
-        }, error=> {
+        }, error => {
           console.log(error);
           loading.dismiss();
         })
-      )
+      );
     };
 
     const  vamonos = () =>{
       if( this.user_data['error'] == false ) {
-        this.router.navigate(['tabs/home'])
+        this.router.navigate(['tabs/home']);
       }else{
         this.router.navigate(['login'])
       }
@@ -134,7 +135,7 @@ export class UsuarioService {
       if( this.user_data['error'] === true ) {
         console.log("Vuelve a intentarlo!")
       }else{
-        this.router.navigate(['registrar'])
+        this.router.navigate(['login']);
       }
     };
 
@@ -144,15 +145,15 @@ export class UsuarioService {
       const dos = await vamonos();
       console.log("Registro asincrono completo");
       loading.dismiss();
-      return dos
+      return dos;
     }
 
     SIGNINasync(datos).then( fin =>{
-      console.log(fin); //este console imprime un undefined pero esta ok
-    })
+      console.log(fin); // este console imprime un undefined pero esta ok
+    });
 
   }
-  
+
 
     set_user = async() => {
 
@@ -181,7 +182,7 @@ export class UsuarioService {
       this.router.navigate(['login']);
     }
 
-    cargar_usuario() {
+    cargar_usuario = async() => {
 
       const promesa = new Promise((resolve, reject) => {
 
@@ -223,7 +224,7 @@ export class UsuarioService {
 
 
   /**  Encuesta  **/
-    async VERIFICAR(datos:string){
+    async VERIFICAR(datos: string) {
       const loading = await this.loadCtrl.create({
         message: 'Verificando...',
       });
@@ -270,6 +271,20 @@ export class UsuarioService {
       VERIFIasync(datos).then( fin =>{
         console.log(fin)
       })
+    }
+
+    friends = async() => {
+      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['matricula'];
+      this.amigos = [];
+
+      this.http.get( url ).subscribe((resp: any) => {
+        console.log(resp);
+          this.amigos.push(...resp.amigos);
+          console.log(this.amigos);
+      }, error => {
+        console.log('ocurrio un error ' + error);
+      });
+
     }
 
 }

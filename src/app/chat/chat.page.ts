@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from '../providers/usuario.service';
 
 
 @Component({
@@ -13,10 +14,11 @@ export class ChatPage implements OnInit {
   ]; */
 
   template: any = [];
-  
-  constructor(  ) { }
+
+  constructor( private _us: UsuarioService ) { }
 
   ngOnInit() {
+    // this._us.friends();
   }
 
 }

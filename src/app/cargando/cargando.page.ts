@@ -19,9 +19,9 @@ export class CargandoPage implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar ) {
 
-    
+
     this.startApp();
-   
+
   }
 
   ngOnInit() {
@@ -29,19 +29,33 @@ export class CargandoPage implements OnInit {
 
 
 
-  startApp() {
-      console.log('primera');
+  async startApp() {
+      /*console.log('primera');
       this._us.cargar_usuario().then(() => {
 
         // this._us.set_user();
         console.log('segunda');
         // aqui puedo cargar datos de la BD para cargar datos
+      });*/
+
+      const checar = () => {
         if ( localStorage.getItem('activo')) {
           console.log('aceptado');
           this.router.navigate(['tabs']);
         } else {
           this.router.navigate(['login']);
         }
+      };
+
+      const startAsync = async() => {
+        const uno = await this._us.cargar_usuario();
+        const dos = await this._us.friends();
+        const tres = await checar();
+        return tres;
+      };
+
+      startAsync().then(final => {
+        console.log(final);
       });
 
   }

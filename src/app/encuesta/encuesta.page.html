@@ -7,35 +7,44 @@
 
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle> Pregunta {{i.id}} </ion-card-subtitle>
+          <ion-card-subtitle *ngIf="idx < 10"> Pregunta {{i.id}} </ion-card-subtitle>
           <ion-card-title style="font-size: 20px"> {{i.question}} </ion-card-title>
         </ion-card-header>
       
         <ion-card-content>
 
-         <ion-list>
-            <ion-radio-group (ionChange)="haber($event, idx)">
-              <ion-list-header>
-                <ion-label>Selecciona una opción:</ion-label>
-              </ion-list-header>
-            
-              <ion-item>
-                <ion-label text-wrap> {{i.opc}} </ion-label>
-                <ion-radio slot="start" [value]="i.val" ></ion-radio>
-              </ion-item>
+          <ng-container *ngIf="idx < 10">
+            <ion-list>
+               <ion-radio-group (ionChange)="haber($event, idx)">
+                 <ion-list-header>
+                   <ion-label>Selecciona una opción:</ion-label>
+                 </ion-list-header>
+               
+                 <ion-item>
+                   <ion-label text-wrap> {{i.opc}} </ion-label>
+                   <ion-radio slot="start" [value]="i.val" ></ion-radio>
+                 </ion-item>
+   
+                 <ion-item>
+                     <ion-label text-wrap> {{i.opc2}} </ion-label>
+                     <ion-radio slot="start" [value]="i.val2" ></ion-radio>
+                   </ion-item>
+   
+                   <ion-item>
+                       <ion-label text-wrap> {{i.opc3}} </ion-label>
+                       <ion-radio slot="start" [value]="i.val3" ></ion-radio>
+                     </ion-item>
+               
+               </ion-radio-group>
+             </ion-list>
 
-              <ion-item>
-                  <ion-label text-wrap> {{i.opc2}} </ion-label>
-                  <ion-radio slot="start" [value]="i.val2" ></ion-radio>
-                </ion-item>
+          </ng-container>
+          <ng-container *ngIf="idx == 10">
+                    <ion-card-subtitle> Listo </ion-card-subtitle>
 
-                <ion-item>
-                    <ion-label text-wrap> {{i.opc3}} </ion-label>
-                    <ion-radio slot="start" [value]="i.val3" ></ion-radio>
-                  </ion-item>
+                  <p>Presionar continuar para enviar tu test y ser emparejado con miles de estudiantes como tú.</p>
             
-            </ion-radio-group>
-          </ion-list>
+          </ng-container>
 
         </ion-card-content>
       </ion-card>
@@ -47,7 +56,7 @@
     
       <p padding style="justify-content: center;">Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.
       <b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
-      <ion-button [disabled]="indice <= 8"
+      <ion-button [disabled]="test.length <10 "
           size="large"
           expand="full"
           (click)="ENVIAR()"

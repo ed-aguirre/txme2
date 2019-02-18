@@ -42,30 +42,32 @@ export class EncuestaPage implements OnInit {
       opc: "Seguir estudiando", opc2: "Buscar un trabajo", opc3: "Emprender o viajar", val: 1, val2: 2 , val3: 3},
     {id: "10", question: "¿Te gustaria tener hijos?", 
       opc: "Espera.. khe?", opc2: "Super si", opc3: "En un futuro, pero si.", val: 1, val2: 2 , val3: 3},
+    {id: "11", question: "Fin del Test", 
+      opc: "", opc2: "", opc3: "", val: null, val2: null , val3: null},
   ]
 
   constructor(public alertCtrl: AlertController,
               public _us: UsuarioService,
               public loadCtrl: LoadingController,
               private http: HttpClient,
-              public router: Router) { 
-    
+              public router: Router) {
+
   }
-  
+
   ngOnInit() {
     let slides = document.querySelector('ion-slides');
     slides.options = {
       effect: 'flip'
-      }
+      };
     this.slides.lockSwipeToNext(true)
-    
+
     this.slides.ionSlideDidChange.subscribe(() =>{
       this.test[this.indice] = this.temporal;
 
       console.log(this.test);
-      //console.log(this.indice);
-      this.slides.lockSwipeToNext(true)
-      
+      // console.log(this.indice); 2312312312
+      this.slides.lockSwipeToNext(true);
+
     });
   }
 
@@ -96,17 +98,18 @@ export class EncuestaPage implements OnInit {
     });
     loading.present();
 
-    let val: string = this.test.join('');
+    const val: string = this.test.join('');
 
     const url = URL_SERVICIOS + 'Encuesta/enviar';
-
-    const env = () =>{
+    const url_match = URL_SERVICIOS + 'Encuesta/emparejar/' + this._us.user_data['matricula'] + '/' + val + '/' + this._us.user_data['gen'];
+    
+    const env = () => {
       return new Promise(resolve =>
           this.http.post(url, {
             matricula: this._us.user_data['matricula'],
             test: val,
             gen: this._us.user_data['gen']
-          }).subscribe((resp:any[]) =>{
+          }).subscribe((resp: any[]) => {
               console.log(resp);
               if( resp['error'] == true) {
                 this.alertErr(resp['Mensaje']);
@@ -114,11 +117,11 @@ export class EncuestaPage implements OnInit {
                 this.alert();
               }
               resolve(resp);
-          }, error =>{
-            console.log('Ha ocurrido un error: '+ error);
+          }, error => {
+            console.log('Ha ocurrido un error: ' + error);
             loading.dismiss();
           })
-        )
+        );
     };
 
     const vamonos = (band: any = {}) =>{
@@ -130,24 +133,37 @@ export class EncuestaPage implements OnInit {
       }
     };
 
-    const ENVIARasync = async() =>{
+    const empareja = () => {
+      return new Promise(resolve => {
+        this.http.get(url_match).subscribe((resp: any[]) => {
+          console.log(resp);
+            resolve(resp);
+        }, error => {
+          console.log(error);
+          loading.dismiss();
+        });
+      });
+    }
+
+    const ENVIARasync = async() => {
       const uno = await env();
       const dos = await vamonos(uno);
-      loading.dismiss()
-      return dos;
+      const tres = await empareja();
+      loading.dismiss();
+      return tres;
     };
-
+      // 2311112212
     ENVIARasync().then( fin =>{
-      console.log(fin); /*no imprime nada pero esta ok*/
+      console.log(fin); /*imprime el query dela ultima funcion cool*/
     })
   }
 
-  haber(e, index:number){
+  haber(e, index: number) {
     this.temporal = e.detail['value'];
     this.indice = index;
-    
-    //this.bandera = false
-    this.slides.lockSwipeToNext(false)
+    console.log(this.indice);
+    // this.bandera = false
+    this.slides.lockSwipeToNext(false);
 
   }
 

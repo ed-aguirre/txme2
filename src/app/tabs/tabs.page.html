@@ -14,7 +14,9 @@
 
     <ion-tab-button tab="chat">
       <ion-icon name="chatbubbles"></ion-icon>
-      <ion-badge class="noti-numero" color="danger">20</ion-badge>
+      <!-- <ng-container *ngIf="_us.amigos != null"> -->
+        <ion-badge class="noti-numero" color="danger"> {{_us.amigos.length}} </ion-badge>
+      <!-- </ng-container> -->
     </ion-tab-button>
   </ion-tab-bar>
 
