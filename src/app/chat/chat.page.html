@@ -12,14 +12,17 @@
         <p class="text">No tienes match aún</p> 
       </div>   
 
-  <ion-list *ngFor="let f of _us.amigos">
+  <ion-list *ngFor="let f of _us.amigos; let i = index">
     <ion-item-sliding>
 
-      <ion-item class="chat" [routerLink]="'/chat/' + f.id" >
+      <ion-item class="chat" [routerLink]="'/chat/' + f.pareja" [id]="contact">
           <ion-thumbnail slot="start">
               <img  src="../../assets/img/Corazón.png">
             </ion-thumbnail>
-        <ion-label> {{f.id}} </ion-label>
+        <ion-label> {{contactos[i]}} </ion-label>
+        
+          <p slot="end"> {{f.puntos}}0% </p>
+       
       </ion-item>
 
       <ion-item-options side="end">

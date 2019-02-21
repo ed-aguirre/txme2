@@ -13,11 +13,9 @@ export class HomePage {
   constructor( public _us: UsuarioService ) {
   }
 
-  verificar(){
-    this._us.VERIFICAR(this._us.user_data['matricula']);
+  verificar() {
+    console.log(this._us.user_data['token']);
+    this._us.VERIFICAR();
   }
- 
- 
- 
 
 }

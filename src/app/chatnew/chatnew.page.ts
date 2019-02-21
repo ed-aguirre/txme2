@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-chatnew',
@@ -8,11 +8,12 @@ import { NavController, AlertController } from '@ionic/angular';
   styleUrls: ['./chatnew.page.scss'],
 })
 export class ChatnewPage implements OnInit {
-
-  id: string;
-  mensaje:string = '';
-
-   chat:any = [
+  // tslint:disable-next-line:no-input-rename
+  @Input('id') contact: any[];
+  // contact: string;
+  mensaje = '';
+  // contact: any;
+  chat: any = [
     {user: 1, time: "05:16 pm", txt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis sapien sed euismod lacinia. Nam dignissim posuere eleifend. Quisque nibh felis, elementum eget enim sed, porttitor mollis eros.  Donec euismod quam quis congue elementum."},
     {user: 0, time: "05:16 pm", txt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis sapien sed euismod lacinia. Nam dignissim posuere eleifend. Quisque nibh felis, elementum eget enim sed, porttitor mollis eros.  Donec euismod quam quis congue elementum."},
     {user: 1, time: "05:16 pm", txt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis sapien sed euismod lacinia. Nam dignissim posuere eleifend. Quisque nibh felis, elementum eget enim sed, porttitor mollis eros.  Donec euismod quam quis congue elementum."},
@@ -34,21 +35,23 @@ export class ChatnewPage implements OnInit {
 
   ] 
 
-  tipoBoton= "clear"; //cuando se llene el chat debe cambiar a "outline"
-  colorBoton= "dark"; //cuando se llene el chat debe cambiar a "danger"
-  textAlert= 'Solo puedes enviar un cantidad especifica de mensajes a esta persona. Cuando se llegue al límite especificado no se permitirá enviar más mensajes a esta persona.';
-  
+  tipoBoton = 'clear'; // cuando se llene el chat debe cambiar a "outline"
+  colorBoton = 'dark'; // cuando se llene el chat debe cambiar a "danger"
+  // tslint:disable-next-line:max-line-length
+  textAlert = 'Solo puedes enviar un cantidad especifica de mensajes a esta persona. Cuando se llegue al límite especificado no se permitirá enviar más mensajes a esta persona.';
 
   constructor(private route: ActivatedRoute,
               private navCtrl: NavController,
-              private alertCtrl: AlertController ) { }
+              private alertCtrl: AlertController) {
+    console.log(this.contact);
+               }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('uid')
+    // this.contact = this.navParams.get('id');
 
-    if(this.chat.length >= 30) {
-      this.colorBoton = "danger";
-      this.tipoBoton = "outline";
+    if (this.chat.length >= 30) {
+      this.colorBoton = 'danger';
+      this.tipoBoton = 'outline';
       this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar txt.me!'
     }
   }
@@ -64,12 +67,12 @@ export class ChatnewPage implements OnInit {
     await alert.present();
   }
 
-  close(){
+  close() {
     this.navCtrl.goBack();
   }
 
   enviar() {
-   
+   console.log('hay que programas');
   }
 
 }

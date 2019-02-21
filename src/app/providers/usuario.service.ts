@@ -19,7 +19,7 @@ export class UsuarioService {
   mensaje: any;
   bandera: boolean;
 
-  public amigos: any[] = [];
+  public amigos: any = [];
 
   constructor(private http: HttpClient,
               private loadCtrl: LoadingController,
@@ -27,7 +27,7 @@ export class UsuarioService {
               private plt: Platform,
               private storage: Storage,
               private router: Router) {
-    // this.guarda();
+    // this.friends();
 
   }
 
@@ -224,7 +224,7 @@ export class UsuarioService {
 
 
   /**  Encuesta  **/
-    async VERIFICAR(datos: string) {
+    async VERIFICAR() {
       const loading = await this.loadCtrl.create({
         message: 'Verificando...',
       });
@@ -232,49 +232,47 @@ export class UsuarioService {
 
       const url = URL_SERVICIOS + 'Encuesta';
 
-      const ver = (datos:string) => {
-        return new Promise(resolve => 
+      const ver = () => {
+        return new Promise(resolve =>
           this.http.post(url, {
-            matricula: datos
-          }).subscribe((resp:any[])=> {
-              if( resp['error'] == false ){
+            token: this.user_data['token']
+          }).subscribe((resp: any[]) => {
+              if ( resp['error'] == false ) {
                 this.presentToast(resp['Mensaje']);
-               
-              }else{
+              } else {
                 this.presentToast(resp['Mensaje']);
-               
               }
-              resolve(resp)
-          }, error =>{
-            console.log('Ocurrio un error: '+ error);
+              resolve(resp);
+          }, error => {
+            console.log('Ocurrio un error: ' + error);
             loading.dismiss();
           })
-        )
+        );
       };
 
-      const vamonos = (band: any ={}) =>{
-        console.log(band)
-        if( band['error'] == false ) {
-          this.router.navigate(['encuesta'])
-        }else{
-          this.router.navigate(['tabs/home'])
+      const vamonos = (band: any = {}) => {
+        console.log(band);
+        if ( band['error'] == false ) {
+          this.router.navigate(['encuesta']);
+        } else{
+          this.router.navigate(['tabs/home']);
         }
       };
 
-      const VERIFIasync = async(datos:string) =>{
-        const uno = await ver(datos);
+      const VERIFIasync = async() => {
+        const uno = await ver();
         const dos = await vamonos(uno);
         loading.dismiss();
         return dos;
       };
 
-      VERIFIasync(datos).then( fin =>{
-        console.log(fin)
-      })
+      VERIFIasync().then( fin => {
+        console.log(fin);
+      });
     }
 
     friends = async() => {
-      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['matricula'];
+      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
       this.amigos = [];
 
       this.http.get( url ).subscribe((resp: any) => {

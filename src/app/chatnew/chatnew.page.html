@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
           <ion-back-button (click)="close()"></ion-back-button>
         </ion-buttons>
-    <ion-title>{{id}}</ion-title>
+    <ion-title>{{contact}}</ion-title>
     <ion-buttons slot="end">
         <ion-button 
         [fill]="tipoBoton" 
@@ -22,7 +22,7 @@
   <div text-center *ngIf="chat.length == 0" class="vacio">
     <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
     <br>
-    <p class="text">Envíale un mensaje a {{id}}</p> 
+    <p class="text">Envíale un mensaje a {{contact}}</p> 
   </div>    
 
   <ng-container *ngFor="let ch of chat">
