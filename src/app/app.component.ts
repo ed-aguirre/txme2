@@ -21,7 +21,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.router.navigate(["cargando"]);
+      this.router.navigate(['cargando']);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

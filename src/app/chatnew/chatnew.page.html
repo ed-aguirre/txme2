@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
           <ion-back-button (click)="close()"></ion-back-button>
         </ion-buttons>
-    <ion-title>{{contact}}</ion-title>
+    <ion-title>{{contact | titlecase}}</ion-title>
     <ion-buttons slot="end">
         <ion-button 
         [fill]="tipoBoton" 
@@ -26,18 +26,21 @@
   </div>    
 
   <ng-container *ngFor="let ch of chat">
-    <ion-card *ngIf="ch.user==1" color="primary" class="caja">
+    <ion-card *ngIf="ch.remitente == usuario" color="primary" class="caja">
         <ion-card-content>
-            <p> {{ch.txt}} </p>
+            <p> {{ch.texto}} </p>
         </ion-card-content>
     </ion-card>
 
-    <ion-card *ngIf="ch.user==0" color="light" class="caja2">
+    <ion-card *ngIf="ch.remitente != usuario" color="light" class="caja2">
         <ion-card-content>
-            <p> {{ch.txt}} </p>
+            <p> {{ch.texto}} </p>
         </ion-card-content>
     </ion-card>
-    <p [ngClass]="{'time': ch.user == 1,'time2': ch.user == 0 }"> {{ch.time}} </p>
+    <p [ngClass]="{'time': ch.remitente  == usuario,'time2': ch.remitente  != usuario  }"> 
+        {{ch.creado_en | date: 'd/MMM/y ' }}
+        {{ch.creado_en | date :'h:mm a '}}
+    </p>
 
   </ng-container>
 </ion-content>
@@ -49,6 +52,7 @@
           <ion-textarea 
           rows="1" 
           placeholder="Escribe algo aquí"
+          max='145'
           [(ngModel)]="mensaje" 
           utofocus
           maxlength="200"></ion-textarea>

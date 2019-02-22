@@ -5,8 +5,9 @@ ion-title{
 }
 
 .boton {
-   background: url(src\assets\img\cora_blanco.png) /* Url de la imagen */ no-repeat center center, #fc739e /* Color del botón */;
+//   background: url(src\assets\img\cora_blanco.png) /* Url de la imagen */ no-repeat center center, #fc739e /* Color del botón */;
   background-size: 60%; /* Tamaño de la imagen */
+  background-color: #c092e6;
   margin-left: auto;
   margin-right: auto;
   display:block;

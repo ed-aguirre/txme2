@@ -12,8 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class CargandoPage implements OnInit {
 
-  constructor( 
-    public _us: UsuarioService, 
+  constructor(
+    public _us: UsuarioService,
     public router: Router,
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -25,18 +25,25 @@ export class CargandoPage implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 
 
-  async startApp() {
-      /*console.log('primera');
-      this._us.cargar_usuario().then(() => {
+  startApp() {
+      console.log('primera');
+      /* this._us.cargar_usuario().then(() => {
 
-        // this._us.set_user();
+        this._us.set_user();
         console.log('segunda');
+        if ( localStorage.getItem('activo')) {
+          console.log('aceptado');
+          this.router.navigate(['tabs']);
+        } else {
+          this.router.navigate(['login']);
+        }
         // aqui puedo cargar datos de la BD para cargar datos
-      });*/
+      }); */
 
       const checar = () => {
         if ( localStorage.getItem('activo')) {

@@ -14,7 +14,7 @@ import { serializePaths } from '@angular/router/src/url_tree';
 })
 export class UsuarioService {
 
-  public user_data: any[];
+  public user_data: any[] = [];
   // tiene que ser publica para que puedas llamar la variable en otros componentes yep...
   mensaje: any;
   bandera: boolean;
@@ -27,7 +27,7 @@ export class UsuarioService {
               private plt: Platform,
               private storage: Storage,
               private router: Router) {
-    // this.friends();
+
 
   }
 
@@ -65,7 +65,7 @@ export class UsuarioService {
         contra: data['contra']
       }).subscribe((resp: any[]) => {
             // console.log(resp);
-            if( resp['error'] == true ) {
+            if ( resp['error'] === true ) {
               this.presentToast(resp['Mensaje']);
             }
             this.user_data = resp;
@@ -77,30 +77,32 @@ export class UsuarioService {
       );
     };
 
-    const  vamonos = () =>{
-      if( this.user_data['error'] == false ) {
+    const  vamonos = () => {
+      if ( localStorage.getItem('activo') ) {
         this.router.navigate(['tabs/home']);
-      }else{
-        this.router.navigate(['login'])
+      } else {
+        this.router.navigate(['login']);
       }
-    }
+    };
 
-    const LOGINasync = async(da:any[]) => {
+    const LOGINasync = async(da: any[]) => {
       const uno = await loggear(da);
-      console.log(uno)
-      const dos = await this.set_user()
+      console.log(uno);
+      const dos = await this.set_user();
+      const tre = await this.cargar_usuario();
+      const cuatro = await this.friends();
       console.log('Guardando usuario');
-      const tres = await vamonos();
+      const cinco = await vamonos();
       loading.dismiss();
-      return tres
-   }
+      return cinco;
+   };
 
-   LOGINasync(datos).then(fin =>{
-    console.log(this.user_data)
-   })
+   LOGINasync(datos).then(fin => {
+    console.log(this.user_data);
+   });
   }
 
-  async SIGNIN(datos:any[]) {
+  async SIGNIN(datos: any[]) {
     const loading = await this.loadCtrl.create({
       message: 'Cargando...',
     });
@@ -108,47 +110,46 @@ export class UsuarioService {
 
     const url = URL_SERVICIOS + 'Login/registrar';
 
-    const signer = (data:any[]) => {
+    const signer = (data: any[]) => {
       return new Promise (resolve => {
         this.http.post(url, {
           matricula: data['matricula'].toUpperCase(),
           nombre: data['nombre'],
           contra: data['contra'],
           gen: data['gen']
-        }).subscribe((resp:any) =>{
-            if( resp['error'] == true ) {
+        }).subscribe((resp: any) => {
+            if ( resp['error'] === true ) {
               this.presentToast(resp['Mensaje']);
-             
-            }else {
-              this.presentToast("Usuario registrado correctamente.");
+            } else {
+              this.presentToast('Usuario registrado correctamente.');
             }
-            this.user_data = resp
+            this.user_data = resp;
             resolve(resp);
-        }, error =>{
+        }, error => {
           loading.dismiss();
-          console.log('Ocurrio un error: '+ error);
-        })
-      })
+          console.log('Ocurrio un error: ' + error);
+        });
+      });
     };
 
-    const vamonos = () =>{
-      if( this.user_data['error'] === true ) {
-        console.log("Vuelve a intentarlo!")
-      }else{
+    const vamonos = () => {
+      if ( this.user_data['error'] === true ) {
+        console.log('Vuelve a intentarlo!');
+      } else {
         this.router.navigate(['login']);
       }
     };
 
-    const SIGNINasync = async(data:any[]) =>{
+    const SIGNINasync = async(data: any[]) => {
       const uno = await signer(data);
       console.log(uno);
       const dos = await vamonos();
-      console.log("Registro asincrono completo");
+      console.log('Registro asincrono completo');
       loading.dismiss();
       return dos;
-    }
+    };
 
-    SIGNINasync(datos).then( fin =>{
+    SIGNINasync(datos).then( fin => {
       console.log(fin); // este console imprime un undefined pero esta ok
     });
 
@@ -237,7 +238,7 @@ export class UsuarioService {
           this.http.post(url, {
             token: this.user_data['token']
           }).subscribe((resp: any[]) => {
-              if ( resp['error'] == false ) {
+              if ( resp['error'] === false ) {
                 this.presentToast(resp['Mensaje']);
               } else {
                 this.presentToast(resp['Mensaje']);
@@ -252,9 +253,9 @@ export class UsuarioService {
 
       const vamonos = (band: any = {}) => {
         console.log(band);
-        if ( band['error'] == false ) {
+        if ( band['error'] === false ) {
           this.router.navigate(['encuesta']);
-        } else{
+        } else {
           this.router.navigate(['tabs/home']);
         }
       };

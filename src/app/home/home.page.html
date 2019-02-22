@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-toolbar mode="md">
     <ion-title>
-      crush
+      talk2me
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,18 @@
     <p>Cuando estes preparado, haz click en el siguiente botón</p>
 
   
-  <a class="boton" (click)="verificar()"></a>
+  <!-- <a class="boton" (click)="verificar()"></a> -->
+
+  <ion-button
+    fill='clear'
+    class="boton"
+    (click)="verificar()">
+      <ion-icon 
+        color='light'
+        name='send' 
+        mode='ios' 
+        style='font-size: 90px'></ion-icon>
+  </ion-button>
 
 
 </ion-content>

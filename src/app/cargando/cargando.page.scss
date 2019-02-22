@@ -1,4 +1,10 @@
 
+ion-icon{
+  padding-left: 7px;
+  font-size: 50px;
+  color: #c092e6;
+}
+
 .lds-ellipsis {
     display: inline-block;
     position: relative;
@@ -11,7 +17,7 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background:#f397b4;
+    background:#c092e6;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {

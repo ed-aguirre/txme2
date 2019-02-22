@@ -12,3 +12,24 @@ ion-item.chat:active {
     transform: translateY(3px);
 
 }
+
+
+.colors{
+    $randomNumber: random(8);
+    background-color: chocolate;
+    border-radius: 50%;
+    animation-name: colores;
+    animation-duration: 9s;
+    animation-iteration-count: infinite;
+    animation-delay: $randomNumber + s;
+    border-color: #ffffff;
+    border-style: dotted
+
+}
+
+@keyframes colores {
+    0%   {background-color: #c092e6;}
+    25%  {background-color: rgb(96, 96, 235);}
+    50%  {background-color: rgb(240, 98, 98);}
+    100% {background-color: #c092e6;}
+  }

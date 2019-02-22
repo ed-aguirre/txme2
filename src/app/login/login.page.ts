@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
 
 
    login() {
-    this._us.LOGIN(this.user)
+    this._us.LOGIN(this.user);
   }
 
   goRegistro( ) {
