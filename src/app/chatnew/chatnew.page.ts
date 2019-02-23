@@ -1,17 +1,22 @@
-import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { Component, OnInit, Input, Injectable, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, AlertController, NavParams, LoadingController, ToastController } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from '../providers/usuario.service';
 
+declare var jQuery: any;
+declare var $: any;
+
+
 @Component({
   selector: 'app-chatnew',
   templateUrl: './chatnew.page.html',
   styleUrls: ['./chatnew.page.scss'],
 })
-
+// tslint:disable-next-line:label-position
 export class ChatnewPage implements OnInit {
+  @ViewChild('content') content: any;
   // tslint:disable-next-line:no-input-rename
 
   contact = '';
@@ -21,6 +26,7 @@ export class ChatnewPage implements OnInit {
   hora = true;
   // contact: any;
   chat: any = [];
+  limite = 50;
 
   tipoBoton = 'clear'; // cuando se llene el chat debe cambiar a "outline"
   colorBoton = 'dark'; // cuando se llene el chat debe cambiar a "danger"
@@ -50,21 +56,23 @@ export class ChatnewPage implements OnInit {
       this.tipoBoton = 'outline';
       this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
     }
+
   }
 
-  doRefresh(event) {
-    console.log('Begin async operation');
+  scroll(el: HTMLElement) {
+    console.log('funcion no agregada');
+    // el.scrollIntoView();
+  }
 
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
+  async doRefresh() {
+    const uno = await this.ver_chat();
+    return uno;
   }
 
   async alert() {
     const alert = await this.alertCtrl.create({
       header: 'Límite de mensajes',
-      subHeader: 'Llevan ' + this.chat.length + ' mensaje(s) enviados de 30.',
+      subHeader: 'Llevan ' + this.chat.length + ' mensaje(s) enviados de ' + this.limite,
       message: this.textAlert,
       buttons: ['OK']
     });
@@ -85,7 +93,7 @@ export class ChatnewPage implements OnInit {
   }
 
   async presentToast(data: any) {
-    console.log(data);
+    // console.log(data);
     const toast = await this.toastCtrl.create({
       message: data,
       duration: 2000,
@@ -127,7 +135,7 @@ export class ChatnewPage implements OnInit {
     };
 
     verArync().then( fin => {
-      console.log(fin);
+      // console.log(fin);
     });
 
   }
@@ -165,7 +173,7 @@ export class ChatnewPage implements OnInit {
     };
 
     enviarAsync().then(fin => {
-      console.log(fin);
+      // console.log(fin);
     });
   }
 

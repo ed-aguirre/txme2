@@ -31,23 +31,11 @@ export class CargandoPage implements OnInit {
 
 
   startApp() {
-      console.log('primera');
-      /* this._us.cargar_usuario().then(() => {
-
-        this._us.set_user();
-        console.log('segunda');
-        if ( localStorage.getItem('activo')) {
-          console.log('aceptado');
-          this.router.navigate(['tabs']);
-        } else {
-          this.router.navigate(['login']);
-        }
-        // aqui puedo cargar datos de la BD para cargar datos
-      }); */
+      // console.log('primera');
 
       const checar = () => {
         if ( localStorage.getItem('activo')) {
-          console.log('aceptado');
+          // console.log('aceptado');
           this.router.navigate(['tabs']);
         } else {
           this.router.navigate(['login']);
@@ -62,7 +50,7 @@ export class CargandoPage implements OnInit {
       };
 
       startAsync().then(final => {
-        console.log(final);
+       // console.log(final);
       });
 
   }

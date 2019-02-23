@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http'; // siempre usar el HTTP DE an
 import { Router } from '@angular/router';
 import { async } from 'q';
 import { serializePaths } from '@angular/router/src/url_tree';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable({
@@ -31,7 +32,7 @@ export class UsuarioService {
 
   }
 
-  /* Creo que no sirve...
+  /* Creo que no sirve...*/
   confirmar() {
     if (this.user_data) {
       this.router.navigate(['tabs/home']);
@@ -39,10 +40,10 @@ export class UsuarioService {
 
       this.confirmar();
     }
-  }*/
+  }
 
   async presentToast(data: any) {
-    console.log(data);
+    // console.log(data);
     const toast = await this.toastCtrl.create({
       message: data,
       duration: 2000
@@ -67,6 +68,7 @@ export class UsuarioService {
             // console.log(resp);
             if ( resp['error'] === true ) {
               this.presentToast(resp['Mensaje']);
+              resolve(resp);
             }
             this.user_data = resp;
             resolve(resp);
@@ -78,27 +80,23 @@ export class UsuarioService {
     };
 
     const  vamonos = () => {
-      if ( localStorage.getItem('activo') ) {
-        this.router.navigate(['tabs/home']);
-      } else {
-        this.router.navigate(['login']);
-      }
+     this.confirmar();
     };
 
     const LOGINasync = async(da: any[]) => {
       const uno = await loggear(da);
-      console.log(uno);
+      // console.log(uno);
       const dos = await this.set_user();
       const tre = await this.cargar_usuario();
       const cuatro = await this.friends();
-      console.log('Guardando usuario');
+      // console.log('Guardando usuario');
       const cinco = await vamonos();
       loading.dismiss();
       return cinco;
    };
 
    LOGINasync(datos).then(fin => {
-    console.log(this.user_data);
+    // console.log(this.user_data);
    });
   }
 
@@ -142,15 +140,15 @@ export class UsuarioService {
 
     const SIGNINasync = async(data: any[]) => {
       const uno = await signer(data);
-      console.log(uno);
+      // console.log(uno);
       const dos = await vamonos();
-      console.log('Registro asincrono completo');
+      // console.log('Registro asincrono completo');
       loading.dismiss();
       return dos;
     };
 
     SIGNINasync(datos).then( fin => {
-      console.log(fin); // este console imprime un undefined pero esta ok
+      // console.log(fin); // este console imprime un undefined pero esta ok
     });
 
   }
@@ -167,7 +165,7 @@ export class UsuarioService {
         });
 
       } else {
-        console.log('compu');
+        console.log('web');
         // localStorage.setItem( "pedido", JSON.stringify(this.elementos) )
         if (this.user_data['token']) {
           localStorage.setItem('activo', JSON.stringify(this.user_data));
@@ -188,11 +186,11 @@ export class UsuarioService {
       const promesa = new Promise((resolve, reject) => {
 
         if (this.plt.is('cordova')) {
-          console.log('storage listo');
+          // console.log('storage listo');
 
           this.storage.ready()
             .then(() => {
-              console.log('storage listo');
+              // console.log('storage listo');
 
               this.storage.get('activo')
                 .then(activo => {
@@ -252,7 +250,7 @@ export class UsuarioService {
       };
 
       const vamonos = (band: any = {}) => {
-        console.log(band);
+        // console.log(band);
         if ( band['error'] === false ) {
           this.router.navigate(['encuesta']);
         } else {
@@ -268,7 +266,7 @@ export class UsuarioService {
       };
 
       VERIFIasync().then( fin => {
-        console.log(fin);
+        // console.log(fin);
       });
     }
 
@@ -277,13 +275,53 @@ export class UsuarioService {
       this.amigos = [];
 
       this.http.get( url ).subscribe((resp: any) => {
-        console.log(resp);
+        // console.log(resp.amigos[0]);
           this.amigos.push(...resp.amigos);
-          console.log(this.amigos);
+          // console.log(this.amigos);
       }, error => {
         console.log('ocurrio un error ' + error);
       });
 
+    }
+
+    async bloquear(i: number) {
+      const loading = await this.loadCtrl.create({
+        message: 'Cargando...',
+      });
+      loading.present();
+      const unfriend = this.amigos[i];
+
+      const url = URL_SERVICIOS + '/Amigos/bloquear' ;
+      // console.log(unfriend['pareja']);
+      const block = () => {
+        return new Promise(resolve => {
+          this.http.post(url, {
+            pareja: unfriend['pareja']
+          }).subscribe((resp: any) => {
+            if ( resp['error'] === true ) {
+              console.log(resp);
+              this.presentToast(resp['Mensaje']);
+            } else {
+              this.presentToast(resp['Mensaje']);
+            }
+            resolve(resp);
+          }, error => {
+            console.log('Ocurrio un error:' + error);
+            loading.dismiss();
+          });
+        });
+      };
+
+      const blockAsync = async() => {
+        const uno = await block();
+        const dos = await this.friends();
+        loading.dismiss();
+        return dos;
+      };
+
+      blockAsync().then(fin => {
+        // console.log(fin);
+      });
     }
 
 }

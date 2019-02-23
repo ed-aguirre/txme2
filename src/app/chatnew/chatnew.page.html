@@ -10,31 +10,23 @@
         [fill]="tipoBoton" 
         [color]="colorBoton"
         (click)="alert()">
-          {{chat.length}} / 30
+          {{chat.length}} / {{limite}}
         </ion-button>
       </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
 
-<ion-content fullscreen="true">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content
-              pullingIcon="arrow-dropdown"
-              pullingText="Jala para recargar"
-              refreshingSpinner="circles"
-              refreshingText="Recargando...">
-            </ion-refresher-content>
-    </ion-refresher>
+<ion-content #content >
     <br>
     
     <div text-center *ngIf="chat.length == 0" class="vacio">
         <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
         <br>
         <p class="text">Envíale un mensaje a {{contact}}</p> 
-    </div>    
+    </div>
 
-  <ng-container *ngFor="let ch of chat; let i = index">
+  <ng-container *ngFor="let ch of chat; let i = index"  id="CH">
       
     <div *ngIf="ch.remitente == usuario" (click)="verHora(i)" class="caja2">
       
@@ -51,6 +43,7 @@
         {{ch.creado_en | date: 'd/MMM/y ' }}
         {{ch.creado_en | date :'h:mm a '}}
     </p>
+        <div #target></div>
 
   </ng-container>
 </ion-content>
@@ -58,13 +51,20 @@
 <ion-footer >
     <ion-toolbar>
 
+        <ion-buttons slot='start'>
+            <ion-button
+            (click)="scroll(target)">
+                <ion-icon name='refresh' mode='md'></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
         <ion-item>
           <ion-textarea 
           rows="1" 
           placeholder="Escribe algo aquí"
           max='145'
           [(ngModel)]="mensaje" 
-          utofocus
+          autofocus
           maxlength="200"></ion-textarea>
         </ion-item>
 
@@ -72,7 +72,7 @@
             <ion-button 
             fill="clear" 
             color="primary" 
-            [disabled]="chat.length >= 30  || mensaje === ''" 
+            [disabled]="chat.length >= limite  || mensaje === ''" 
             (click)="enviar()">
                 <ion-icon name="send" mode="md"></ion-icon>
             </ion-button>

@@ -1,6 +1,14 @@
 <ion-header no-border>
   <ion-toolbar mode="md">
     <ion-title>chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+      fill="clear" 
+      color="medium"
+      (click)="info()">
+      <ion-icon name="help-circle-outline" slot='end'></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,27 +21,29 @@
       </div>   
 
   <ion-list *ngFor="let f of _us.amigos; let i = index">
-    <ion-item-sliding>
+    
+      <ion-item-sliding>
+  
+        <ion-item class="chat" [routerLink]="'/chat/' + f.pareja + '/' + contactos[i]" >
+            <ion-thumbnail slot="start" class='colors'>
+               <ion-icon 
+               name='help' 
+               mode='ios' 
+               color='light'
+               style='font-size:50px'></ion-icon>
+              </ion-thumbnail>
+          <ion-label> {{contactos[i]}} </ion-label>
+          
+            <p slot="end" style="color: #b4b4b4"> {{f.puntos}}0% </p>
+         
+        </ion-item>
+  
+        <ion-item-options side="end"  (click)="block(i)">
+          <ion-item-option color='danger'>Bloquear</ion-item-option>
+        </ion-item-options>
+  
+      </ion-item-sliding>
 
-      <ion-item class="chat" [routerLink]="'/chat/' + f.pareja + '/' + contactos[i]" >
-          <ion-thumbnail slot="start" class='colors'>
-             <ion-icon 
-             name='help' 
-             mode='ios' 
-             color='light'
-             style='font-size:50px'></ion-icon>
-            </ion-thumbnail>
-        <ion-label> {{contactos[i]}} </ion-label>
-        
-          <p slot="end"> {{f.puntos}}0% </p>
-       
-      </ion-item>
-
-      <ion-item-options side="end">
-        <ion-item-option >Bloquear</ion-item-option>
-      </ion-item-options>
-
-    </ion-item-sliding>
   </ion-list>
 
 </ion-content>
