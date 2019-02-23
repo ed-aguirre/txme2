@@ -18,6 +18,7 @@ export class ChatnewPage implements OnInit {
   chat_id = '';
   mensaje = '';
   usuario = '';
+  hora = true;
   // contact: any;
   chat: any = [];
 
@@ -51,6 +52,15 @@ export class ChatnewPage implements OnInit {
     }
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   async alert() {
     const alert = await this.alertCtrl.create({
       header: 'Límite de mensajes',
@@ -64,6 +74,14 @@ export class ChatnewPage implements OnInit {
 
   close() {
     this.navCtrl.goBack();
+  }
+
+  verHora(i: number) {
+    if (this.hora === false ) {
+      this.hora = true;
+    } else {
+      this.hora = false;
+    }
   }
 
   async presentToast(data: any) {
@@ -141,6 +159,7 @@ export class ChatnewPage implements OnInit {
 
     const enviarAsync = async() => {
       const uno = await send();
+      this.mensaje = '';
       const dos = await this.ver_chat();
       return uno;
     };

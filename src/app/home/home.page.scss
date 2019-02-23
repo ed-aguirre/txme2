@@ -6,13 +6,13 @@ ion-title{
 
 .boton {
 //   background: url(src\assets\img\cora_blanco.png) /* Url de la imagen */ no-repeat center center, #fc739e /* Color del botón */;
-  background-size: 60%; /* Tamaño de la imagen */
+  //background-size: 40%; /* Tamaño de la imagen */
   background-color: #c092e6;
   margin-left: auto;
   margin-right: auto;
   display:block;
-    height: 200px;  /* Alto del botón */
-    width: 200px;  /* Ancho del botón */
+    height: 152px;  /* Alto del botón */
+    width: 152px;  /* Ancho del botón */
     display: table;
     border-radius: 100%;
     cursor: pointer;
@@ -27,5 +27,10 @@ ion-title{
   .boton:active {
     box-shadow: inset 0 5px 30px rgba(0,0,0,.2); /* Sombra interior */
     background-size: 55%; /* Cambiamos el tamaño de la imagen */
+  }
+
+  .boton .ico {
+    height: 94%;
+    width: 94%;
   }
 

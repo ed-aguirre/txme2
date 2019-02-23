@@ -18,26 +18,36 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-
-  <div text-center *ngIf="chat.length == 0" class="vacio">
-    <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content
+              pullingIcon="arrow-dropdown"
+              pullingText="Jala para recargar"
+              refreshingSpinner="circles"
+              refreshingText="Recargando...">
+            </ion-refresher-content>
+    </ion-refresher>
     <br>
-    <p class="text">Envíale un mensaje a {{contact}}</p> 
-  </div>    
+    
+    <div text-center *ngIf="chat.length == 0" class="vacio">
+        <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
+        <br>
+        <p class="text">Envíale un mensaje a {{contact}}</p> 
+    </div>    
 
-  <ng-container *ngFor="let ch of chat">
-    <ion-card *ngIf="ch.remitente == usuario" color="primary" class="caja">
-        <ion-card-content>
+  <ng-container *ngFor="let ch of chat; let i = index">
+      
+    <div *ngIf="ch.remitente == usuario" (click)="verHora(i)" class="caja2">
+      
             <p> {{ch.texto}} </p>
-        </ion-card-content>
-    </ion-card>
+       
+    </div>
 
-    <ion-card *ngIf="ch.remitente != usuario" color="light" class="caja2">
-        <ion-card-content>
+    <div *ngIf="ch.remitente != usuario" (click)="verHora(i)" class="caja">
+      
             <p> {{ch.texto}} </p>
-        </ion-card-content>
-    </ion-card>
-    <p [ngClass]="{'time': ch.remitente  == usuario,'time2': ch.remitente  != usuario  }"> 
+       
+    </div>
+    <p [hidden]='hora' [ngClass]="{'time2': ch.remitente  == usuario,'time': ch.remitente  != usuario  }"> 
         {{ch.creado_en | date: 'd/MMM/y ' }}
         {{ch.creado_en | date :'h:mm a '}}
     </p>

@@ -34,21 +34,21 @@
         [readonly]='band' name='nombre' type="text" [(ngModel)]="user.nombre" maxlength='20'></ion-input>
       </ion-item>
 
-    <p>Contraseña</p>
+    <!-- <p>Contraseña</p>
     <ion-item >
       <ion-icon name='create' item-start [hidden]="band" class="edit" ></ion-icon>
       <ion-input 
       [readonly]='band' name='contra' [type]="tipo" [(ngModel)]="user.pass" maxlength='30'></ion-input>
       <ion-icon name='eye' item-end [hidden]="band" class="edit" (click)="ver()"></ion-icon>
-    </ion-item>
+    </ion-item> -->
 
-      <ion-button *ngIf="band"
-      (click)="cambiar()"
-      expand="block"
-      color='medium'
-      fill="outline">
-        Actualizar datos
-      </ion-button>
+      <!-- <ion-button *ngIf="band" -->
+      <!-- (click)="cambiar()" -->
+      <!-- expand="block" -->
+      <!-- color='medium' -->
+      <!-- fill="outline"> -->
+        <!-- Actualizar datos -->
+      <!-- </ion-button> -->
       
       <ion-button *ngIf="!band"
       (click)="cambiar()"
