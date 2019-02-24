@@ -229,7 +229,7 @@ export class UsuarioService {
       });
       loading.present();
 
-      const url = URL_SERVICIOS + 'Encuesta';
+      const url = URL_SERVICIOS + 'Encuesta/verificar';
 
       const ver = () => {
         return new Promise(resolve =>

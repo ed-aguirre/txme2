@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Injectable, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, AlertController, NavParams, LoadingController, ToastController } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
@@ -14,10 +14,9 @@ declare var $: any;
   templateUrl: './chatnew.page.html',
   styleUrls: ['./chatnew.page.scss'],
 })
+
 // tslint:disable-next-line:label-position
 export class ChatnewPage implements OnInit {
-  @ViewChild('content') content: any;
-  // tslint:disable-next-line:no-input-rename
 
   contact = '';
   chat_id = '';
@@ -44,10 +43,10 @@ export class ChatnewPage implements OnInit {
 
     this.usuario = this._us.user_data['matricula'];
     this.ver_chat();
-
   }
 
   ngOnInit() {
+
     this.chat_id = this.route.snapshot.params[('uid')];
     this.contact = this.route.snapshot.params[('contact')];
 
@@ -56,12 +55,14 @@ export class ChatnewPage implements OnInit {
       this.tipoBoton = 'outline';
       this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
     }
-
   }
 
-  scroll(el: HTMLElement) {
-    console.log('funcion no agregada');
-    // el.scrollIntoView();
+  irA() {
+    console.log('caminando hacia abajo');
+    const posicion = $('#last').offset().top;
+    jQuery('#CH').animate({
+        scrollTop: posicion
+    }, 1000);
   }
 
   async doRefresh() {
@@ -85,11 +86,8 @@ export class ChatnewPage implements OnInit {
   }
 
   verHora(i: number) {
-    if (this.hora === false ) {
-      this.hora = true;
-    } else {
-      this.hora = false;
-    }
+      $('.time2').slideToggle();
+      $('.time').slideToggle();
   }
 
   async presentToast(data: any) {

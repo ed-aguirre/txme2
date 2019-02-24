@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../providers/usuario.service';
-declare var jquery:any;
-declare var $ :any;
 
 @Component({
   selector: 'app-home',
@@ -14,8 +12,8 @@ export class HomePage {
   }
 
   verificar() {
-    console.log(this._us.user_data['token']);
     this._us.VERIFICAR();
   }
+
 
 }

@@ -21,31 +21,7 @@ export class EncuestaPage implements OnInit {
   mensaje: string;
   test: number[] = [];
 
-  private template = [
-    {id: '1',  question: '¿Qué haces cuando estas aburrido?',
-      opc: 'Ver series y películas', opc2: 'Platicar con amigos', opc3: 'Dormir', val: 1, val2: 2 , val3: 3 },
-    {id: '2',  question: '¿A qué horario frecuentas salir?',
-      opc: 'De noche', opc2: 'Casi no salgo', opc3: 'Mañana, Tarde y Noche.', val: 1, val2: 2 , val3: 3},
-    {id: '3',  question: '¿Consideras importante la escuela?',
-      opc: 'Super importante', opc2: 'Me da igual', opc3: 'Qué es una escuela?', val: 1, val2: 2 , val3: 3},
-    {id: '4',  question: '¿Sueles apoyar a las personas de bajos recursos?',
-      opc: 'Ayudo con lo que pueda', opc2: 'Le doy dinero', opc3: 'Nada', val: 1, val2: 2 , val3: 3},
-    {id: '5',  question: '¿Te gustan los animales?',
-      opc: 'Tengo mascotas y si', opc2: 'Tengo mascotas y no', opc3: 'Para nada', val: 1, val2: 2 , val3: 3},
-    {id: '6',  question: '¿Qué opinas de tu carrera?',
-      opc: 'Es la mejor', opc2: 'Me da igual', opc3: 'Todas son importantes', val: 1, val2: 2 , val3: 3},
-    {id: '7',  question: 'Elige la cita perfecta:',
-      // tslint:disable-next-line:max-line-length
-      opc: 'Pizza, Sabritas, Helado y Netflix', opc2: 'Plaza, Cine, Marquesitas o Esquite', opc3: 'Ir por un cafe y platicar', val: 1, val2: 2 , val3: 3},
-    {id: '8',  question: '¿Te gusta bailar?',
-      opc: 'Si, bailo de todo', opc2: 'No', opc3: 'No se bailar, pero hago el intento', val: 1, val2: 2 , val3: 3},
-    {id: '9',  question: 'Terminando la carrera, ¿que te gustaría hacer?',
-      opc: 'Seguir estudiando', opc2: 'Buscar un trabajo', opc3: 'Emprender o viajar', val: 1, val2: 2 , val3: 3},
-    {id: '10', question: '¿Te gustaria tener hijos?',
-      opc: 'Espera.. khe?', opc2: 'Super si', opc3: 'En un futuro, pero si.', val: 1, val2: 2 , val3: 3},
-    {id: '11', question: 'Fin del Test',
-      opc: '', opc2: '', opc3: '', val: null, val2: null , val3: null},
-  ];
+  private template = [];
 
   constructor(public alertCtrl: AlertController,
               public _us: UsuarioService,
@@ -56,6 +32,9 @@ export class EncuestaPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.encuesta();
+
     const slides = document.querySelector('ion-slides');
     slides.options = {
       effect: 'flip'
@@ -65,12 +44,43 @@ export class EncuestaPage implements OnInit {
     this.slides.ionSlideDidChange.subscribe(() => {
       this.test[this.indice] = this.temporal;
 
-      console.log(this.test);
+      // console.log(this.test);
       // console.log(this.indice); 2312312312
       this.slides.lockSwipeToNext(true);
 
     });
   }
+
+  async encuesta() {
+    const loading = await this.loadCtrl.create({
+      message: 'Cargando...',
+    });
+    loading.present();
+
+    const url = URL_SERVICIOS + 'Encuesta';
+
+    const mostrar = () => {
+        this.http.get(url).subscribe((resp: any) => {
+          // console.log(resp);
+            this.template.push(...resp.slides);
+          // console.log(this.template);
+        }, error => {
+          console.log(error);
+          loading.dismiss();
+        });
+      };
+
+      const slidesAsync = async() => {
+        const uno = await mostrar();
+        loading.dismiss();
+        return uno;
+      };
+
+      slidesAsync().then(fin => {
+        // console.log(fin);
+      });
+    }
+
 
   async alert() {
     const alert = await this.alertCtrl.create({
@@ -84,7 +94,6 @@ export class EncuestaPage implements OnInit {
   }
 
   async alertErr(data: string) {
-    console.log();
     const toast = await this.alertCtrl.create({
       header: 'Ha ocurrido un error',
       message: data,
@@ -113,7 +122,7 @@ export class EncuestaPage implements OnInit {
             gen: this._us.user_data['gen'],
             nombre: this._us.user_data['nombre']
           }).subscribe((resp: any[]) => {
-              console.log(resp);
+              // console.log(resp);
               if ( resp['error'] === true) {
                 this.alertErr(resp['Mensaje']);
               } else {
@@ -164,7 +173,7 @@ export class EncuestaPage implements OnInit {
   haber(e, index: number) {
     this.temporal = e.detail['value'];
     this.indice = index;
-    console.log(this.indice);
+    // console.log(this.indice);
     // this.bandera = false
     this.slides.lockSwipeToNext(false);
 

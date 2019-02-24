@@ -1,8 +1,8 @@
 {
   "name": "txme",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "version": "1.0.0",
+  "author": "L. Eduardo Aguirre Fuentes",
+  "homepage": "http://www.talk2me.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -37,7 +37,6 @@
     "cordova-sqlite-storage": "2.6.0",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
-    "ngx-auto-scroll": "^1.1.0",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },
@@ -58,7 +57,6 @@
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "^4.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
