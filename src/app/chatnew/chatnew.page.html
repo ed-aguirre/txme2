@@ -39,7 +39,7 @@
             <p> {{ch.texto}} </p>
        
     </div>
-    <p [ngClass]="{'time2': ch.remitente  == usuario,'time': ch.remitente  != usuario  }"> 
+    <p [ngClass]="{'time2': ch.remitente  == usuario,'time': ch.remitente  != usuario  }" id='ora{{i}}'> 
         {{ch.creado_en | date: 'd/MMM/y ' }}
         {{ch.creado_en | date :'h:mm a '}}
     </p>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { Component, OnInit, Input, Injectable, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, AlertController, NavParams, LoadingController, ToastController } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
@@ -17,7 +17,6 @@ declare var $: any;
 
 // tslint:disable-next-line:label-position
 export class ChatnewPage implements OnInit {
-
   contact = '';
   chat_id = '';
   mensaje = '';
@@ -32,7 +31,6 @@ export class ChatnewPage implements OnInit {
   // tslint:disable-next-line:max-line-length
   textAlert = 'Solo puedes enviar un cantidad especifica de mensajes a esta persona. Cuando se llegue al límite especificado no se permitirá enviar más mensajes.';
 
-
   constructor(private route: ActivatedRoute,
               private loadCtrl: LoadingController,
               private navCtrl: NavController,
@@ -45,6 +43,7 @@ export class ChatnewPage implements OnInit {
     this.ver_chat();
   }
 
+
   ngOnInit() {
 
     this.chat_id = this.route.snapshot.params[('uid')];
@@ -55,14 +54,18 @@ export class ChatnewPage implements OnInit {
       this.tipoBoton = 'outline';
       this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
     }
+
   }
 
   irA() {
     console.log('caminando hacia abajo');
-    const posicion = $('#last').offset().top;
-    jQuery('#CH').animate({
-        scrollTop: posicion
-    }, 1000);
+    $('#CH').animate({
+      scrollTop: ($('#last').offset().top)
+  }, 500);
+  }
+
+  verHora(i: number) {
+      $('#ora' + i).slideToggle();
   }
 
   async doRefresh() {
@@ -83,11 +86,6 @@ export class ChatnewPage implements OnInit {
 
   close() {
     this.navCtrl.goBack();
-  }
-
-  verHora(i: number) {
-      $('.time2').slideToggle();
-      $('.time').slideToggle();
   }
 
   async presentToast(data: any) {
