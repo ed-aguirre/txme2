@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Injectable, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, AlertController, NavParams, LoadingController, ToastController } from '@ionic/angular';
+import { NavController, AlertController, NavParams, LoadingController, ToastController, IonContent } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from '../providers/usuario.service';
+
+import {AfterViewInit} from '@angular/core';
 
 declare var jQuery: any;
 declare var $: any;
@@ -17,6 +19,9 @@ declare var $: any;
 
 // tslint:disable-next-line:label-position
 export class ChatnewPage implements OnInit {
+  @ViewChild(IonContent) conte: IonContent;
+  el: HTMLElement;
+
   contact = '';
   chat_id = '';
   mensaje = '';
@@ -30,6 +35,7 @@ export class ChatnewPage implements OnInit {
   colorBoton = 'dark'; // cuando se llene el chat debe cambiar a "danger"
   // tslint:disable-next-line:max-line-length
   textAlert = 'Solo puedes enviar un cantidad especifica de mensajes a esta persona. Cuando se llegue al límite especificado no se permitirá enviar más mensajes.';
+  scrollElement;
 
   constructor(private route: ActivatedRoute,
               private loadCtrl: LoadingController,
@@ -40,11 +46,12 @@ export class ChatnewPage implements OnInit {
               private _us: UsuarioService) {
 
     this.usuario = this._us.user_data['matricula'];
-    this.ver_chat();
+
+
   }
 
-
   ngOnInit() {
+    this.ver_chat();
 
     this.chat_id = this.route.snapshot.params[('uid')];
     this.contact = this.route.snapshot.params[('contact')];
@@ -55,14 +62,16 @@ export class ChatnewPage implements OnInit {
       this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
     }
 
+
   }
 
-  irA() {
-    console.log('caminando hacia abajo');
-    $('#CH').animate({
-      scrollTop: ($('#last').offset().top)
-  }, 500);
-  }
+  // async fondo() {
+  //   console.log('ultimo');
+  //   this.conte.scrollToBottom(800);
+  // }
+  // irA() {
+  //   this.conte.scrollToBottom(1000);
+  // }
 
   verHora(i: number) {
       $('#ora' + i).slideToggle();
@@ -124,10 +133,17 @@ export class ChatnewPage implements OnInit {
       });
     };
 
+    const fondo = () => {
+     setTimeout(() => {
+       this.conte.scrollToBottom(800);
+     }, 500);
+    };
+
     const verArync = async() => {
       const uno = await ver();
+      const dos = await fondo();
       loading.dismiss();
-      return uno;
+      return dos;
     };
 
     verArync().then( fin => {
@@ -165,11 +181,11 @@ export class ChatnewPage implements OnInit {
       const uno = await send();
       this.mensaje = '';
       const dos = await this.ver_chat();
-      return uno;
+      return dos;
     };
 
     enviarAsync().then(fin => {
-      // console.log(fin);
+     // console.log('ok');
     });
   }
 

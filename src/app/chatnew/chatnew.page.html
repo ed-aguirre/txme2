@@ -17,8 +17,9 @@
 
 </ion-header>
 
-<ion-content id='contenido' >
-    <br>
+<ion-content 
+[scrollEvents]="true" 
+id='contenido' >
     
     <div text-center *ngIf="chat.length == 0" class="vacio">
         <ion-icon name="send" mode="ios" class="icon_5x"></ion-icon>
@@ -26,28 +27,31 @@
         <p class="text">Envíale un mensaje a {{contact}}</p> 
     </div>
 
-  <ng-container *ngFor="let ch of chat; let i = index"  id="CH">
-      
-    <div *ngIf="ch.remitente == usuario" (click)="verHora(i)" class="caja2">
-      
-            <p> {{ch.texto}} </p>
-       
-    </div>
+    <div #theScrollEl id='CHU'>
+        <div >
 
-    <div *ngIf="ch.remitente != usuario" (click)="verHora(i)" class="caja">
-      
-            <p> {{ch.texto}} </p>
-       
-    </div>
-    <p [ngClass]="{'time2': ch.remitente  == usuario,'time': ch.remitente  != usuario  }" id='ora{{i}}'> 
-        {{ch.creado_en | date: 'd/MMM/y ' }}
-        {{ch.creado_en | date :'h:mm a '}}
-    </p>
-        <div id='last'>
-            <div></div>
+                <ng-container *ngFor="let ch of chat; let i = index"  id="CH">
+                    
+                  <div *ngIf="ch.remitente == usuario" (click)="verHora(i)" class="caja2">
+                    
+                          <p> {{ch.texto}} </p>
+                     
+                  </div>
+              
+                  <div *ngIf="ch.remitente != usuario" (click)="verHora(i)" class="caja">
+                    
+                          <p> {{ch.texto}} </p>
+                     
+                  </div>
+                  <p [ngClass]="{'time2': ch.remitente  == usuario,'time': ch.remitente  != usuario  }" id='ora{{i}}'> 
+                      {{ch.creado_en | date: 'd/MMM/y ' }}
+                      {{ch.creado_en | date :'h:mm a '}}
+                  </p>
+                  <div *ngIf="(i+1) == chat.length"></div>
+                </ng-container>
         </div>
-
-  </ng-container>
+    </div>
+    
 </ion-content>
 
 <ion-footer >
@@ -55,7 +59,7 @@
 
         <ion-buttons slot='start'>
             <ion-button
-            (click)="irA()">
+            (click)="doRefresh()">
                 <ion-icon name='refresh' mode='md'></ion-icon>
             </ion-button>
         </ion-buttons>
