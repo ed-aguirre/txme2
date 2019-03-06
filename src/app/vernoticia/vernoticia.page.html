@@ -1,0 +1,34 @@
+<ion-header no-border>
+  <ion-toolbar mode='md' color="warning">
+      <ion-buttons slot="start">
+          <ion-back-button (click)="close()"></ion-back-button>
+      </ion-buttons>
+
+    <ion-title class='subtitle'> Por: {{noticiaid}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-item color="warning" lines="none">
+    <h2> Nueva actualización para ntodos los celulares! </h2>
+  </ion-item>
+  <p padding> Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.</p>
+
+      <ion-list>
+
+          <ion-item>
+            <ion-label text-wrap>
+                <ion-text color="medium">
+                    <h3> S17016273</h3>
+                  </ion-text>
+            Multiline text that should wrap when it is too long
+            to fit on one line in the item.
+            </ion-label>
+            <ion-icon name="send" color="medium" slot="start"></ion-icon>
+          </ion-item>
+        
+        </ion-list>
+
+</ion-content>

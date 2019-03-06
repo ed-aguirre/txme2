@@ -1,22 +1,24 @@
 <ion-tabs>
 
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar translucent slot="bottom">
 
-    <ion-tab-button tab="perfil">
+    <ion-tab-button tab="perfil" fill="outline">
       <ion-icon name="person"></ion-icon>
-      
     </ion-tab-button>
 
     <ion-tab-button tab="home">
       <ion-icon name="home"></ion-icon>
-      
+    </ion-tab-button>
+
+    <ion-tab-button tab="noticias">
+      <ion-icon name="paper"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button tab="chat">
       <ion-icon name="chatbubbles"></ion-icon>
-      <!-- <ng-container *ngIf="_us.amigos != null"> -->
+      <ng-container *ngIf="_us.amigos != null">
         <ion-badge class="noti-numero" color="danger"> {{_us.amigos.length}} </ion-badge>
-      <!-- </ng-container> -->
+      </ng-container> 
     </ion-tab-button>
   </ion-tab-bar>
 

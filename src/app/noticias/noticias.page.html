@@ -1,0 +1,46 @@
+<ion-header no-border>
+  <ion-toolbar mode='md'>
+    <ion-title>noticias</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button 
+      fill="outline" 
+      (click)="irA()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card >
+        <ion-card-header color='warning'>
+          <ion-card-subtitle>Por: S17016273</ion-card-subtitle>
+          <ion-item color='warning' lines='none'>
+            <h4 text-wrap>Nueva actualización para ntodos los celulares!</h4>
+            <ion-icon class='iconTitle' slot='end' name='send'></ion-icon>
+          </ion-item>
+        </ion-card-header>
+
+        <ion-card-content>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            <ion-item lines='none' 
+            [routerLink]="'/noticias/' + uid" 
+            detail="false">
+              <ion-icon 
+              class='gris'
+              slot='start'
+              mode='md'
+              style='font-size:30px' 
+              [name]="cora"></ion-icon>
+                <span class="gris" slot="start">{{likes}}</span>
+            </ion-item>
+
+        </ion-card-content>
+
+      </ion-card>
+
+</ion-content>

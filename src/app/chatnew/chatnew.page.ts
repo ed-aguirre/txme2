@@ -56,13 +56,6 @@ export class ChatnewPage implements OnInit {
     this.chat_id = this.route.snapshot.params[('uid')];
     this.contact = this.route.snapshot.params[('contact')];
 
-    if (this.chat.length >= 30) {
-      this.colorBoton = 'danger';
-      this.tipoBoton = 'outline';
-      this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
-    }
-
-
   }
 
   // async fondo() {
@@ -133,6 +126,15 @@ export class ChatnewPage implements OnInit {
       });
     };
 
+    const limit = () => {
+      console.log(this.chat.length);
+      if (this.chat.length >= this.limite) {
+      this.colorBoton = 'danger';
+      this.tipoBoton = 'outline';
+      this.textAlert = 'Se ha alcanzado el límite de mensajes por chat. Gracias por usar talk2me!';
+      };
+    };
+
     const fondo = () => {
      setTimeout(() => {
        this.conte.scrollToBottom(800);
@@ -141,9 +143,10 @@ export class ChatnewPage implements OnInit {
 
     const verArync = async() => {
       const uno = await ver();
-      const dos = await fondo();
+      const dos = await limit();
+      const tres = await fondo();
       loading.dismiss();
-      return dos;
+      return tres;
     };
 
     verArync().then( fin => {

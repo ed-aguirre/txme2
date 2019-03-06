@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
           <ion-back-button (click)="close()"></ion-back-button>
         </ion-buttons>
-    <ion-title>{{contact | titlecase}}</ion-title>
+    <ion-title class='subtitle'>{{contact | titlecase}}</ion-title>
     <ion-buttons slot="end">
         <ion-button 
         [fill]="tipoBoton" 
@@ -68,10 +68,9 @@ id='contenido' >
           <ion-textarea 
           rows="1" 
           placeholder="Escribe algo aquí"
-          max='145'
           [(ngModel)]="mensaje" 
           autofocus
-          maxlength="200"></ion-textarea>
+          maxlength="155"></ion-textarea>
         </ion-item>
 
         <ion-buttons slot="end">

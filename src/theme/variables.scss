@@ -9,7 +9,7 @@
   // $font-family-base: "Oxygen", sans-serif !default;
   --ion-font-family: "Varela Round", sans-serif;
 
-  --ion-tab-bar-color: #ce98fa;
+  --ion-tab-bar-color: #e6d4f5;
   // --ion-tab-bar-color-activated: #ffffff;
   // --ion-tab-bar-background: #e65582;
 
@@ -110,6 +110,14 @@
     position: absolute;
     top: 5px;
     right: 15px;
+  }
+
+  ion-title{
+    font-size: 35px;
+  }
+
+  ion-title.subtitle{
+    font-size: 17px
   }
   
 

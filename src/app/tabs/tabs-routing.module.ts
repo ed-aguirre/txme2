@@ -28,6 +28,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'noticias',
+        children: [
+          {
+            path: '',
+            loadChildren: '../noticias/noticias.module#NoticiasPageModule'
+          }
+        ]
+      },
+      {
         path: 'chat',
         children: [
           {

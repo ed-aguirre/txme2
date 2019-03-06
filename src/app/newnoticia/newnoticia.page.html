@@ -1,0 +1,72 @@
+<ion-header no-border>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+        <ion-back-button (click)="close()"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class='subtitle'>Crear publicación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item>
+        <ion-label position="stacked">Titulo</ion-label>
+        <ion-input name='title' type="text"  maxlength='46' required='true'></ion-input>
+      </ion-item>
+  
+      <ion-item>
+          <ion-label>Icono</ion-label>
+          <ion-icon slot='start' [name]='icono'></ion-icon>
+          <ion-select [(ngModel)]="icono" placeholder="Selecciona uno">
+            <ion-select-option selected value="help">Integorración</ion-select-option>
+            <ion-select-option value="book">Libro</ion-select-option>
+            <ion-select-option value="happy">Feliz</ion-select-option>
+            <ion-select-option value="sad">Sad</ion-select-option>
+            <ion-select-option value="send">Enviar</ion-select-option>
+            <ion-select-option value="body">Persona</ion-select-option>
+            <ion-select-option value="cash">Dinero</ion-select-option>
+            <ion-select-option value="color-palette">Arte</ion-select-option>
+            <ion-select-option value="heart-half">Medio cora</ion-select-option>
+            <ion-select-option value="restaurant">Comida</ion-select-option>
+            <ion-select-option value="school">Gorro graduación</ion-select-option>
+            <ion-select-option value="warning">Peligro</ion-select-option>
+
+          </ion-select>
+        </ion-item>
+  
+        <ion-item [color]='colors'>
+            <ion-label>Color</ion-label>
+            <ion-select [(ngModel)]="colors" placeholder="Elige un color">
+              <ion-select-option value="primary">Morado</ion-select-option>
+              <ion-select-option value="secondary">Aqua</ion-select-option>
+              <ion-select-option value="success">Verde</ion-select-option>
+              <ion-select-option value="warning">Amarillo</ion-select-option>
+              <ion-select-option value="danger">Rojo</ion-select-option>
+              <ion-select-option value="light">Ligero</ion-select-option>
+              <ion-select-option value="medium">Gris</ion-select-option>
+              <ion-select-option value="dark">Negro</ion-select-option>
+  
+            </ion-select>
+          </ion-item>
+
+        <ion-item>
+            <ion-label
+            [ngStyle]="{'color': texto.length == 155 ? 'red' : 'black'}"
+            position="stacked">{{texto.length}}/155</ion-label>
+            <ion-textarea 
+            maxlength='155'
+            [(ngModel)]="texto" 
+            rows="6" 
+            cols="20" 
+            placeholder="Escribe algo aqui..."></ion-textarea>
+        </ion-item>
+
+      <ion-button [disabled]= "!title || !icono || !colors || !texto"
+      expand='block'
+      color='success'
+      (click)="publicar()">
+        Publicar
+      </ion-button>
+
+</ion-content>

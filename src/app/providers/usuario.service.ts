@@ -3,11 +3,11 @@ import { URL_SERVICIOS } from '../../config/url.service';
 import { LoadingController, ToastController, Platform } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage';
-import { HttpClient } from '@angular/common/http'; // siempre usar el HTTP DE angular
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // siempre usar el HTTP DE angular
 import { Router } from '@angular/router';
-import { async } from 'q';
-import { serializePaths } from '@angular/router/src/url_tree';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+// import { async } from 'q';
+// import { serializePaths } from '@angular/router/src/url_tree';
+// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Injectable({
@@ -15,6 +15,12 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class UsuarioService {
 
+  private httpOptions = {
+      headers: new HttpHeaders({
+       'Content-Type': 'application/x-www-form-urlencoded'
+     })
+    }
+  
   public user_data: any[] = [];
   // tiene que ser publica para que puedas llamar la variable en otros componentes yep...
   mensaje: any;
@@ -58,6 +64,7 @@ export class UsuarioService {
       loading.present();
 
     const url = URL_SERVICIOS + 'Login' ;
+    // this.http.post(url,{matri:"nose"},this.httpOptions)
 
     const loggear = (data: any[]) => {
       return new Promise (resolve =>
