@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NoticiaService } from '../providers/noticia.service';
 
 @Component({
   selector: 'app-cargando',
@@ -17,7 +18,8 @@ export class CargandoPage implements OnInit {
     public router: Router,
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar ) {
+    private statusBar: StatusBar,
+    public _ns: NoticiaService ) {
 
 
     this.startApp();
@@ -45,8 +47,9 @@ export class CargandoPage implements OnInit {
       const startAsync = async() => {
         const uno = await this._us.cargar_usuario();
         const dos = await this._us.friends();
-        const tres = await checar();
-        return tres;
+        const tres = await this._ns.NEWS();
+        const cuatr = await checar();
+        return cuatr;
       };
 
       startAsync().then(final => {

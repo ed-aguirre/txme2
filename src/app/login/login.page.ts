@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../providers/usuario.service';
+import { NoticiaService } from '../providers/noticia.service';
 
 
 
@@ -16,7 +17,10 @@ export class LoginPage implements OnInit {
     contra: '123456'
   };
 
-  constructor(private router: Router, private _us: UsuarioService) {
+  constructor(
+    private router: Router, 
+    private _us: UsuarioService,
+    private _ns: NoticiaService) {
 
   }
 
@@ -26,7 +30,7 @@ export class LoginPage implements OnInit {
 
    login() {
     this._us.LOGIN(this.user);
-    // this._us.confirmar();
+    this._ns.NEWS();
   }
 
   goRegistro( ) {

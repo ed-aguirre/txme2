@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController, ToastController } from '@ionic/angular';
+import { UsuarioService } from '../providers/usuario.service';
+
+import { URL_SERVICIOS  } from "../../config/url.service";
+import { HttpClient } from '@angular/common/http';
+import { NoticiaService } from '../providers/noticia.service';
 
 @Component({
   selector: 'app-newnoticia',
@@ -8,23 +13,87 @@ import { NavController } from '@ionic/angular';
 })
 export class NewnoticiaPage implements OnInit {
 
+  title: '';
   colors= '';
   icono='help';
   texto='';
-  noticiaid= '';
+  // noticiaid= '';
 
-  constructor(private navCtrl: NavController) { }
+  constructor(
+    private navCtrl: NavController,
+    private _us: UsuarioService,
+    private loadCtrl: LoadingController,
+    private toastCtrl: ToastController,
+    private http: HttpClient,
+    private _ns: NoticiaService) { }
 
   ngOnInit() {
    
+  }
+
+  async presentToast(data: any) {
+    const toast = await this.toastCtrl.create({
+      message: data,
+      duration: 2000
+    });
+    toast.present();
   }
 
   close() {
     this.navCtrl.goBack();
   }
 
-  publicar() {
-    console.log('yerp');
+  async publicar() {
+    const loading = await this.loadCtrl.create({
+      message: 'Cargando...',
+    });
+    loading.present();
+
+    const url = URL_SERVICIOS + 'Noticia/crear';
+
+    const crear = () => {
+      return new Promise (resolve => {
+        this.http.post(url, {
+          matricula: this._us.user_data['matricula'],
+          title: this.title,
+          icon: this.icono,
+          color: this.colors,
+          text: this.texto
+        }).subscribe(( resp:any ) => {
+          if( resp['error'] === true ){
+            this.presentToast(resp['Mensaje']);
+
+          } else {
+            this.presentToast(resp['Mensaje']);
+
+          }
+          resolve(resp);
+        }, error => {
+          console.log( 'Ha ocurrido un erro '+ error );
+          loading.dismiss();
+        });
+      });
+    };
+
+    const vamos = (resp:any) => {
+      if ( resp['error'] === true ) {
+        console.log('No se va');
+      } else {
+        this.navCtrl.goBack()
+      }
+    };
+
+    const crearASYNC = async() => {
+      const uno = await crear();
+      const unuymedio = await this._ns.NEWS();
+      const dos = await vamos(uno);
+      loading.dismiss();
+      return dos;
+    };
+
+    crearASYNC().then(fin => {
+      console.log(fin);
+    });
   }
 
 }

@@ -15,32 +15,60 @@
 
 <ion-content>
 
-    <ion-card >
-        <ion-card-header color='warning'>
-          <ion-card-subtitle>Por: S17016273</ion-card-subtitle>
-          <ion-item color='warning' lines='none'>
-            <h4 text-wrap>Nueva actualización para ntodos los celulares!</h4>
-            <ion-icon class='iconTitle' slot='end' name='send'></ion-icon>
-          </ion-item>
-        </ion-card-header>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Jala para recargar"
+      refreshingSpinner="circles"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-        <ion-card-content>
-          Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.
-            <ion-item lines='none' 
-            [routerLink]="'/noticias/' + uid" 
-            detail="false">
-              <ion-icon 
-              class='gris'
-              slot='start'
-              mode='md'
-              style='font-size:30px' 
-              [name]="cora"></ion-icon>
-                <span class="gris" slot="start">{{likes}}</span>
-            </ion-item>
+    <div text-center *ngIf="_ns.news.length == 0" class="vacio">
+        <ion-icon name="paper" mode="ios" class="icon_5x"></ion-icon>
+        <br>
+        <p class="text">No hay noticias aún, sé el primero en crear una!</p>
+      </div>   
 
-        </ion-card-content>
+        <!-- <ion-virtual-scroll [items]="_ns.news"> -->
+          <ng-container *ngFor="let items of _ns.news; let i = index">
 
-      </ion-card>
+              <ion-card *ngIf="i % 7 == 0 && i !=0 ">
+
+                Aqui va un anuncio {{7 % i}}
+              </ion-card>
+            
+
+            <ion-card >
+                <ion-card-header [color]='items.color'>
+                  <ion-card-subtitle>Por: {{items.matricula}} {{i}}</ion-card-subtitle>
+                  <ion-item [color]='items.color' lines='none'>
+                    <h4 text-wrap> {{items.title}} </h4>
+                    <ion-icon class='iconTitle' slot='end' [name]='items.icon'></ion-icon>
+                  </ion-item>
+                </ion-card-header>
+        
+                <ion-card-content>
+                 {{items.text}}
+                    <ion-item lines='none'
+                    [routerLink]="'/noticias/' + items.id_noticia" 
+                    detail="false">
+                      <ion-icon 
+                      class='gris'
+                      slot='start'
+                      mode='md'
+                      style='font-size:30px' 
+                      name="text"></ion-icon>
+                        <span class="gris" slot="start">{{ items.comentarios }}</span>
+                    </ion-item>
+        
+                </ion-card-content>
+        
+              </ion-card>
+              
+          </ng-container>
+          
+          <!-- </ion-virtual-scroll> -->
+          
 
 </ion-content>

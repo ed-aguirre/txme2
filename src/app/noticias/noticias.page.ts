@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonItemSliding } from '@ionic/angular';
+import { NoticiaService } from '../providers/noticia.service';
 
 @Component({
   selector: 'app-noticias',
@@ -10,29 +11,26 @@ import { IonItemSliding } from '@ionic/angular';
 export class NoticiasPage implements OnInit {
   @ViewChild(IonItemSliding) slider: IonItemSliding;
 
-  uid= "S170";
-
-  cora= 'text';
   likes = 0;
   colorCora='dark'
-  constructor( private router: Router ) { }
+
+  constructor(private router: Router,
+              public _ns: NoticiaService ) { 
+              
+              }
 
   ngOnInit() {
+    console.log(this._ns.news)
+    // this.news = this._ns.news;
   }
-  jalar(e){
 
-    this.slider.close().then(()=>{
-      this.like();
-    });
+  doRefresh(e){
+    this._ns.NEWS();
+    e.target.complete();
   }
 
   irA() {
     this.router.navigate(['/newnoticia']);
-  }
-  like() {
-    this.cora = 'heart';
-    this.likes++;
-    this.colorCora= 'primary';
   }
 
 }
