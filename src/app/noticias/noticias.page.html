@@ -30,18 +30,18 @@
         <p class="text">No hay noticias aún, sé el primero en crear una!</p>
       </div>   
 
-        <!-- <ion-virtual-scroll [items]="_ns.news"> -->
-          <ng-container *ngFor="let items of _ns.news; let i = index">
 
-              <ion-card *ngIf="i % 7 == 0 && i !=0 ">
+         <!--  <ng-container *ngFor="let items of _ns.news; let i = index">
 
-                Aqui va un anuncio {{7 % i}}
-              </ion-card>
+              <ion-card *ngIf="i % 11 == 0 && i !=0 ">
+
+                Aqui va un anuncio {{11 % i}}
+              </ion-card> -->
             
 
             <ion-card >
                 <ion-card-header [color]='items.color'>
-                  <ion-card-subtitle>Por: {{items.matricula}} {{i}}</ion-card-subtitle>
+                  <ion-card-subtitle>Por: {{items.matricula}} </ion-card-subtitle>
                   <ion-item [color]='items.color' lines='none'>
                     <h4 text-wrap> {{items.title}} </h4>
                     <ion-icon class='iconTitle' slot='end' [name]='items.icon'></ion-icon>

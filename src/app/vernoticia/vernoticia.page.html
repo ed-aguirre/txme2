@@ -15,14 +15,20 @@
   </ion-item>
   <p padding> {{verNew.text}} </p>
 
-      <ion-list>
+  
+    <div text-center *ngIf="_ns.coments.length == 0" class='vacioComent'>
+      <ion-icon name='text' mode='md' class='icon_5x'></ion-icon>
+      <br>
+      <p class="text">No hay comentarios aún. Se el primero en hacer uno!</p>
+    </div>
+  
+      <ion-list *ngFor="let com of _ns.coments">
           <ion-item>
             <ion-label text-wrap>
                 <ion-text color="medium">
-                    <h3> S17016273</h3>
+                    <h3> {{com.matricula}} </h3>
                   </ion-text>
-            Multiline text that should wrap when it is too long
-            to fit on one line in the item.
+                  {{com.mensaje}}
             </ion-label>
             <ion-icon name="send" style='color: rgb(196, 196, 196)' slot="start"></ion-icon>
           </ion-item>

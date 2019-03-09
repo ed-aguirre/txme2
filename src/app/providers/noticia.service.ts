@@ -11,6 +11,8 @@ export class NoticiaService {
 
   public news:any[] = [];
 
+  public coments :any[] = [];
+
   constructor(private http: HttpClient,
               private loadCtrl: LoadingController,
               private toastCtrl: ToastController) {
@@ -43,7 +45,7 @@ export class NoticiaService {
           } else {
             this.news.push(...resp.noticias);
             this.news.reverse();
-            console.table(this.news);
+            // console.table(this.news);
           }
           resolve(resp);
           
@@ -61,11 +63,39 @@ export class NoticiaService {
     };
 
     verNews().then(fin => {
-      console.log(fin);
+      // console.log(fin);
     });
 
    }
 
+   async comentarios( id: string ) {
+      //aqui debo de poner un colorsito de cargando
+      this.coments = []
+
+      const url = URL_SERVICIOS + 'Noticia/comentarios/' + id;
+
+      const verComent = () => {
+        return new Promise(resolve => {
+          this.http.get( url ).subscribe((resp:any) => {
+            //console.log(resp);
+            this.coments.push(...resp.comentarios );
+            //console.table(this.coments);
+            resolve(resp);
+          }, error => {
+            console.log('Ocurrio un error '+ error);
+          });
+        });
+      };
+
+      const commentAsync = async() => {
+        const uno = await verComent();
+        return uno;
+      };
+
+      commentAsync().then(fin => {
+        //console.log(fin);
+      });
+   }
 
 
 }

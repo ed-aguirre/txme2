@@ -20,7 +20,7 @@ export class NoticiasPage implements OnInit {
               }
 
   ngOnInit() {
-    console.log(this._ns.news)
+    // console.log(this._ns.news)
     // this.news = this._ns.news;
   }
 
