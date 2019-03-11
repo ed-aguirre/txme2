@@ -1,7 +1,7 @@
 
 
 <ion-content >
-  <ion-slides [options]="sliderConfig">
+  <ion-slides >
 
     <ion-slide *ngFor="let i of template, let idx = index" >
 
@@ -34,6 +34,14 @@
                        <ion-label text-wrap> {{i.opc3}} </ion-label>
                        <ion-radio slot="start" [value]="i.val3" ></ion-radio>
                      </ion-item>
+
+                     <ng-container *ngIf="i.opc4">
+                       <ion-item>
+                        <ion-label text-wrap> {{i.opc4}} </ion-label>
+                        <ion-radio slot="start" [value]="i.val4" ></ion-radio>
+                       </ion-item>
+                     </ng-container>
+                     
                
                </ion-radio-group>
              </ion-list>
@@ -42,7 +50,8 @@
           <ng-container *ngIf="idx == 10">
                     <ion-card-subtitle> Listo </ion-card-subtitle>
 
-                  <p>Presiona continuar para enviar tu test y ser emparejado con miles de estudiantes como tú.</p>
+                  <p>Presiona continuar para enviar tu test y ser emparejado con cientos
+                     de estudiantes como tú.</p>
             
           </ng-container>
 

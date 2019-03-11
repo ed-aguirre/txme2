@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 
+//import { TimeAgoPipe } from 'time-ago-pipe';
+
 
 
 

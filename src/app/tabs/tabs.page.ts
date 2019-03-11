@@ -8,7 +8,7 @@ import { UsuarioService } from '../providers/usuario.service';
 })
 export class TabsPage implements OnInit {
 
-  constructor( private _us: UsuarioService ) {
+  constructor( public _us: UsuarioService ) {
   }
 
   ngOnInit() {

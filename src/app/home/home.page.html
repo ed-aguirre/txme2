@@ -7,21 +7,29 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- por si quieres hacer la animacion https://github.com/juliangarnier/anime -->
-    <p>Realiza una sencilla encuesta de <b>10 preguntas</b> para emparejarte con gente que posiblemente te agrade!</p>
-    <p>Cuando estes preparado, haz click en el siguiente botón</p>
 
-  
-  <!-- <a class="boton" (click)="verificar()"></a> -->
+  <ion-card>
+    <ion-card-content>
+    
+      <!-- por si quieres hacer la animacion https://github.com/juliangarnier/anime -->
+        <p>Realiza una sencilla encuesta de <b>10 preguntas</b> para emparejarte con gente que posiblemente te agrade!</p>
+        <p>Cuando estes preparado, haz click en el siguiente botón</p>
+    
+      
+      <!-- <a class="boton" (click)="verificar()"></a> -->
+        <br><br>
+        <ion-icon 
+        (click)="verificar()"
+        color='light'
+        name='send' 
+        mode='ios' 
+        class='boton'
+        style='padding-right: 10px;padding-top: 10px'>
+        </ion-icon>
 
-    <ion-icon 
-    (click)="verificar()"
-    color='light'
-    name='send' 
-    mode='ios' 
-    class='boton'
-    style='padding-right: 10px;padding-top: 10px'>
-    </ion-icon>
+    </ion-card-content>
+  </ion-card>
+
 
 
 </ion-content>

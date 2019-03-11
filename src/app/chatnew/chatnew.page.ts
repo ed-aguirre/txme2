@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Injectable, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, AlertController, NavParams, LoadingController, ToastController, IonContent } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ToastController, IonContent } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioService } from '../providers/usuario.service';
 
-import {AfterViewInit} from '@angular/core';
+// import {AfterViewInit} from '@angular/core';
 
-declare var jQuery: any;
+// declare var jQuery: any;
 declare var $: any;
 
 
@@ -20,7 +20,7 @@ declare var $: any;
 // tslint:disable-next-line:label-position
 export class ChatnewPage implements OnInit {
   @ViewChild(IonContent) conte: IonContent;
-  el: HTMLElement;
+  // el: HTMLElement;
 
   contact = '';
   chat_id = '';
@@ -57,14 +57,6 @@ export class ChatnewPage implements OnInit {
     this.contact = this.route.snapshot.params[('contact')];
 
   }
-
-  // async fondo() {
-  //   console.log('ultimo');
-  //   this.conte.scrollToBottom(800);
-  // }
-  // irA() {
-  //   this.conte.scrollToBottom(1000);
-  // }
 
   verHora(i: number) {
       $('#ora' + i).slideToggle();

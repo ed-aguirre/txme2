@@ -9,13 +9,17 @@ import { AlertController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
 
-  user: any[];
+  public user = {
+    matricula: '',
+    nombre: ''
+  };
   band = true;
   tipo = 'password';
   tip = 0;
 
-  constructor( private _us: UsuarioService, private alertCtrl: AlertController ) {
-    this.user = this._us.user_data;
+  constructor( public _us: UsuarioService, private alertCtrl: AlertController ) {
+    this.user['matricula'] = this._us.user_data['matricula'];
+    this.user['nombre'] = this._us.user_data['nombre'];
   }
 
   ngOnInit() {

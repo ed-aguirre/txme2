@@ -15,7 +15,7 @@ export class ChatPage implements OnInit {
   matches: any = [];
   contactos: any = [];
 
-  constructor( private _us: UsuarioService, private alertCtrl: AlertController ) {
+  constructor( public _us: UsuarioService, private alertCtrl: AlertController ) {
       this.num = 2;
       this._us.amigos.forEach(e => {
         this.matches = e['nombres'].split('|'); // aqui separa el string con el metodo split, delimitador |

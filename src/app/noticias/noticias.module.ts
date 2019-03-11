@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
+
 import { IonicModule } from '@ionic/angular';
 
 import { NoticiasPage } from './noticias.page';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { TraductorPipe } from '../traductor.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +24,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [NoticiasPage]
+  declarations: [NoticiasPage, TimeAgoPipe, TraductorPipe]
 })
 export class NoticiasPageModule {}

@@ -21,7 +21,7 @@ export class EncuestaPage implements OnInit {
   mensaje: string;
   test: number[] = [];
 
-  private template = [];
+  public template = [];
 
   constructor(public alertCtrl: AlertController,
               public _us: UsuarioService,

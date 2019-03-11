@@ -19,7 +19,7 @@ export class VernoticiaPage implements OnInit {
 
   constructor(private ruta: ActivatedRoute,
               private navCtrl: NavController,
-              private _ns: NoticiaService,
+              public _ns: NoticiaService,
               private _us: UsuarioService,
               private loadCtrl: LoadingController,
               private toastCtrl: ToastController,
@@ -91,7 +91,7 @@ export class VernoticiaPage implements OnInit {
     };
 
     doAsync().then(fin => {
-      // console.log(fin);
+      this.mensaje = '';
     })
   }
 

@@ -3,17 +3,32 @@
     <ion-title>noticias</ion-title>
 
     <ion-buttons slot="end">
+        <ion-button 
+        fill="clear" 
+        color='dark'
+        (click)="buscar()">
+        <ion-icon [name]="icono"></ion-icon>
+        </ion-button>
+        
       <ion-button 
-      fill="outline" 
+      fill="clear" 
+      color='dark'
       (click)="irA()">
       <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-
+  
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+    <ng-container padding >
+      <ion-searchbar style='display: none' 
+      id='barra' 
+      placeholder='Buscar' 
+      (ionInput)='buscarNoticia($event)' ></ion-searchbar>
+    </ng-container>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -31,27 +46,76 @@
       </div>   
 
 
-         <ng-container *ngFor="let items of _ns.news; let i = index">
+      <div id='news1'>
+        <ng-container id='news1' *ngFor="let items of _ns.news; let i = index">
 
-              <!-- <ion-card *ngIf="i % 11 == 0 && i !=0 ">
+             <!-- <ion-card *ngIf="i % 11 == 0 && i !=0 ">
 
-                Aqui va un anuncio {{11 % i}}
-              </ion-card> -->
-            
+               Aqui va un anuncio {{11 % i}}
+             </ion-card> -->
 
+           <ion-card >
+               <ion-card-header [color]='items.color'>
+                 <ion-card-subtitle>Por: {{items.matricula}} - 
+                  {{ _ns.getTimer(i) | timeAgo | traductor:'esp' }}
+                 </ion-card-subtitle>
+                 <ion-item [color]='items.color' lines='none'>
+                   <h4 text-wrap> {{items.title}} </h4>
+                   <ion-icon class='iconTitle' slot='end' [name]='items.icon'></ion-icon>
+                 </ion-item>
+               </ion-card-header>
+       
+               <ion-card-content>
+                {{items.text}}
+                   <ion-item lines='none'
+                   [routerLink]="'/noticias/' + items.id_noticia" 
+                   detail="false">
+                     <ion-icon 
+                     class='gris'
+                     slot='start'
+                     mode='md'
+                     style='font-size:30px' 
+                     name="text"></ion-icon>
+                       <span class="gris" slot="start">{{ items.comentarios }}</span>
+                   </ion-item>
+
+                   <ng-container *ngIf="items.matricula == _us.user_data['matricula']">
+                     <ion-button 
+                     expand='full' 
+                     color='danger' 
+                     shape='round' 
+                     fill='outline'
+                     (click)="_ns.alert(items.id_noticia)" >Borrar</ion-button>
+                   </ng-container>
+                   
+               </ion-card-content>
+       
+             </ion-card>
+             
+         </ng-container>
+      </div>
+
+      <div style='display: none'  id='news2'>
+          <div text-center *ngIf="_ns.resultado.length == 0" class="vacio">
+              <p class="text">No se ha encontrado resultados</p>
+            </div>   
+
+        <ng-container *ngFor="let n of _ns.resultado; let j = index">
             <ion-card >
-                <ion-card-header [color]='items.color'>
-                  <ion-card-subtitle>Por: {{items.matricula}} </ion-card-subtitle>
-                  <ion-item [color]='items.color' lines='none'>
-                    <h4 text-wrap> {{items.title}} </h4>
-                    <ion-icon class='iconTitle' slot='end' [name]='items.icon'></ion-icon>
+                <ion-card-header [color]='n.color'>
+                  <ion-card-subtitle>Por: {{n.matricula}} - 
+                   {{ _ns.getTimer(j) | timeAgo | traductor:'esp' }}
+                  </ion-card-subtitle>
+                  <ion-item [color]='n.color' lines='none'>
+                    <h4 text-wrap> {{n.title}} </h4>
+                    <ion-icon class='iconTitle' slot='end' [name]='n.icon'></ion-icon>
                   </ion-item>
                 </ion-card-header>
         
                 <ion-card-content>
-                 {{items.text}}
+                 {{n.text}}
                     <ion-item lines='none'
-                    [routerLink]="'/noticias/' + items.id_noticia" 
+                    [routerLink]="'/noticias/' + n.id_noticia" 
                     detail="false">
                       <ion-icon 
                       class='gris'
@@ -59,14 +123,23 @@
                       mode='md'
                       style='font-size:30px' 
                       name="text"></ion-icon>
-                        <span class="gris" slot="start">{{ items.comentarios }}</span>
+                        <span class="gris" slot="start">{{ n.comentarios }}</span>
                     </ion-item>
+
+                    <ng-container *ngIf="n.matricula == _us.user_data['matricula']">
+                      <ion-button 
+                      expand='full' 
+                      color='danger' 
+                      shape='round' 
+                      fill='outline'
+                      (click)="_ns.alert(n.id_noticia)" >Borrar</ion-button>
+                    </ng-container>
         
                 </ion-card-content>
-        
               </ion-card>
-              
-          </ng-container>
+
+        </ng-container>
+      </div>
           
 
 </ion-content>
