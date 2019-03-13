@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Injectable, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, AlertController, LoadingController, ToastController, IonContent } from '@ionic/angular';
 import { URL_SERVICIOS } from 'src/config/url.service';
 import { HttpClient } from '@angular/common/http';
@@ -43,7 +43,8 @@ export class ChatnewPage implements OnInit {
               private toastCtrl: ToastController,
               private http: HttpClient,
               private alertCtrl: AlertController,
-              private _us: UsuarioService) {
+              private _us: UsuarioService,
+              public router: Router) {
 
     this.usuario = this._us.user_data['matricula'];
 
@@ -79,8 +80,8 @@ export class ChatnewPage implements OnInit {
   }
 
   close() {
-    this.navCtrl.goBack();
-  }
+     this.router.navigate(['tabs/noticias']);
+  } 
 
   async presentToast(data: any) {
     // console.log(data);

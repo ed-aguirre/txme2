@@ -13,8 +13,8 @@ import { NoticiaService } from '../providers/noticia.service';
 export class LoginPage implements OnInit {
 
   public user: any = {
-    matricula: 's17016273',
-    contra: '123456'
+    matricula: '',
+    contra: ''
   };
 
   constructor(

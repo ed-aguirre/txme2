@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../providers/usuario.service';
 
 import { URL_SERVICIOS  } from "../../config/url.service";
 import { HttpClient } from '@angular/common/http';
 import { NoticiaService } from '../providers/noticia.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newnoticia',
@@ -20,12 +21,12 @@ export class NewnoticiaPage implements OnInit {
   // noticiaid= '';
 
   constructor(
-    private navCtrl: NavController,
     private _us: UsuarioService,
     private loadCtrl: LoadingController,
     private toastCtrl: ToastController,
     private http: HttpClient,
-    private _ns: NoticiaService) { }
+    private _ns: NoticiaService,
+    public router:Router) { }
 
   ngOnInit() {
    
@@ -40,7 +41,7 @@ export class NewnoticiaPage implements OnInit {
   }
 
   close() {
-    this.navCtrl.goBack();
+    this.router.navigate(['tabs/noticias']);
   }
 
   async publicar() {
@@ -79,7 +80,7 @@ export class NewnoticiaPage implements OnInit {
       if ( resp['error'] === true ) {
         console.log('No se va');
       } else {
-        this.navCtrl.goBack()
+        this.router.navigate(['tabs/noticias']);
       }
     };
 
