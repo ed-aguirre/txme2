@@ -42,7 +42,10 @@ export class UsuarioService {
   /* Creo que no sirve...*/
   confirmar() {
     if (this.user_data['token']) {
-      this.router.navigate(['tabs/home']);
+      this.router.navigate(['tabs/home']).then( () => {
+        location.reload();
+      });
+
     } else {
 
       // console.log('Se queda en login');

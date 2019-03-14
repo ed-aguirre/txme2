@@ -51,6 +51,7 @@ export class EncuestaPage implements OnInit {
        
       // console.log(this.test);
       // console.log(this.indice); 2312312312
+      this.slides.lockSwipeToPrev(true);
       this.slides.lockSwipeToNext(true);
 
     });
