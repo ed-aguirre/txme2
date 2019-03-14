@@ -41,11 +41,11 @@ export class UsuarioService {
 
   /* Creo que no sirve...*/
   confirmar() {
-    if (this.user_data) {
+    if (this.user_data['token']) {
       this.router.navigate(['tabs/home']);
     } else {
 
-      this.confirmar();
+      // console.log('Se queda en login');
     }
   }
 
@@ -292,7 +292,7 @@ export class UsuarioService {
         return new Promise(resolve =>{
           this.http.get( url ).subscribe((resp:any) => {
             if( resp['error'] === true ) {
-              this.presentToast(resp['Mensaje']);
+              // this.presentToast(resp['Mensaje']);
             }else {
               this.amigos.push(...resp.amigos);
 

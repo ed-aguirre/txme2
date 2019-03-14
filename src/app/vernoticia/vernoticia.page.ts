@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, ToastController } from '@ionic/angular';
 import { NoticiaService } from '../providers/noticia.service';
 
@@ -18,6 +18,7 @@ export class VernoticiaPage implements OnInit {
   uid:string = '';
 
   constructor(private ruta: ActivatedRoute,
+              public router: Router,
               private navCtrl: NavController,
               public _ns: NoticiaService,
               private _us: UsuarioService,
@@ -49,7 +50,7 @@ export class VernoticiaPage implements OnInit {
   }
 
   close() {
-    this.navCtrl.goBack();
+    this.router.navigate(['tabs/noticias'])
   }
 
   async enviar() {

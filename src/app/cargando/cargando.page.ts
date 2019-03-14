@@ -32,12 +32,13 @@ export class CargandoPage implements OnInit {
 
 
 
-  startApp() {
+  async startApp() {
       // console.log('primera');
 
       const checar = () => {
         if ( localStorage.getItem('activo')) {
           // console.log('aceptado');
+          this._us.friends();
           this.router.navigate(['tabs']);
         } else {
           this.router.navigate(['login']);
@@ -46,10 +47,10 @@ export class CargandoPage implements OnInit {
 
       const startAsync = async() => {
         const uno = await this._us.cargar_usuario();
-        const dos = await this._us.friends();
-        const tres = await this._ns.NEWS();
-        const cuatr = await checar();
-        return cuatr;
+        // const dos = await this._us.friends();
+        const dos = await this._ns.NEWS();
+        const tres = await checar();
+        return tres;
       };
 
       startAsync().then(final => {
