@@ -65,13 +65,16 @@
     
       <p padding style="justify-content: center;">Desliza la tarjeta hacía la derecha para avanzar de pregunta. Tienes que marcar primero la opción para avanzar.
       <b>Si no puedes avanzar, vuelve a marcar la opción.</b></p>
-      <ion-button [disabled]="test.length <10 "
-          size="large"
-          expand="full"
-          (click)="ENVIAR()"
-          [routerLink]="['/tabs']">
-          Continuar
-      </ion-button>
+      <ng-container *ngIf="test.length == 10">
+        <ion-button [disabled]="test.length <10"
+            size="large"
+            expand="full"
+            (click)="ENVIAR()"
+            [routerLink]="['/tabs']">
+            Continuar
+        </ion-button>
+      </ng-container>
+      
 
   
 </ion-content>

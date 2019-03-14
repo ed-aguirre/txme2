@@ -20,6 +20,7 @@ export class EncuestaPage implements OnInit {
   bandera: boolean; // false = si deja, true = no deja
   mensaje: string;
   test: number[] = [];
+  //ultimo:boolean = false;
 
   public template = [];
 
@@ -40,10 +41,14 @@ export class EncuestaPage implements OnInit {
       effect: 'flip'
       };
     this.slides.lockSwipeToNext(true);
+    
 
     this.slides.ionSlideDidChange.subscribe(() => {
       this.test[this.indice] = this.temporal;
-
+     /*  if( this.indice > 9 ){
+        this.ultimo == true;
+      } */
+       
       // console.log(this.test);
       // console.log(this.indice); 2312312312
       this.slides.lockSwipeToNext(true);
@@ -112,7 +117,8 @@ export class EncuestaPage implements OnInit {
 
     const url = URL_SERVICIOS + 'Encuesta/enviar';
     // tslint:disable-next-line:max-line-length
-    const url_match = URL_SERVICIOS + 'Encuesta/emparejar/' + this._us.user_data['token'] + '/' + val + '/' + this._us.user_data['gen'] + '/' + this._us.user_data['nombre'];
+    //const url_match = URL_SERVICIOS + 'Encuesta/emparejar/' + this._us.user_data['token'] + '/' + val + '/' + this._us.user_data['gen'] + '/' + this._us.user_data['nombre'];
+    const url_match = URL_SERVICIOS + 'Encuesta/emparejar';
 
     const env = () => {
       return new Promise(resolve =>
@@ -147,11 +153,20 @@ export class EncuestaPage implements OnInit {
 
     const empareja = () => {
       return new Promise(resolve => {
-        this.http.get(url_match).subscribe((resp: any[]) => {
-          console.log(resp);
-            resolve(resp);
-        }, error => {
-          console.log(error);
+        this.http.post( url_match, {
+          token: this._us.user_data['token'],
+          test: val,
+          gen: this._us.user_data['gen'],
+          nombre: this._us.user_data['nombre']
+        }).subscribe((resp:any[]) => {
+          if( resp['error'] === true){
+            this.alertErr(resp['Mensaje']);
+          } else {
+            this.alert();
+          }
+          resolve(resp);
+        }, error =>{
+          console.log('Ha ocurrido un error '+ error);
           loading.dismiss();
         });
       });

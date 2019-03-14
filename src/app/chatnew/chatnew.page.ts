@@ -80,7 +80,7 @@ export class ChatnewPage implements OnInit {
   }
 
   close() {
-     this.router.navigate(['tabs/noticias']);
+     this.router.navigate(['tabs/chat']);
   } 
 
   async presentToast(data: any) {
@@ -131,7 +131,7 @@ export class ChatnewPage implements OnInit {
     const fondo = () => {
      setTimeout(() => {
        this.conte.scrollToBottom(800);
-     }, 500);
+     }, 1000);
     };
 
     const verArync = async() => {

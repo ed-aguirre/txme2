@@ -13,11 +13,12 @@
 </ion-header>
 
 <ion-content >
+    
 
     <div text-center *ngIf="_us.amigos.length == 0" class="vacio">
         <ion-icon name="help" mode="ios" class="icon_5x"></ion-icon>
         <br>
-        <p class="text">No tienes match aún</p> 
+        <p class="text">¿No tienes match aún? ¡Recarga la página!</p> 
       </div>   
 
   <ion-list *ngFor="let f of _us.amigos; let i = index">

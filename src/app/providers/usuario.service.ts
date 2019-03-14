@@ -5,6 +5,7 @@ import { LoadingController, ToastController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; // siempre usar el HTTP DE angular
 import { Router } from '@angular/router';
+import { resolve } from 'q';
 // import { async } from 'q';
 // import { serializePaths } from '@angular/router/src/url_tree';
 // import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -277,16 +278,57 @@ export class UsuarioService {
       });
     }
 
-    friends = async() => {
-      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
+    async friends() {
+      const loading = await this.loadCtrl.create({
+        message: 'Cargando...',
+      });
+      loading.present();
+
       this.amigos = [];
 
-      this.http.get( url ).subscribe((resp: any) => {
-        // console.log(resp.amigos[0]);
-          this.amigos.push(...resp.amigos);
-          // console.log(this.amigos);
-      }, error => {
-        console.log('ocurrio un error ' + error);
+      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
+
+      const getFriends = () => {
+        return new Promise(resolve =>{
+          this.http.get( url ).subscribe((resp:any) => {
+            if( resp['error'] === true ) {
+              this.presentToast(resp['Mensaje']);
+            }else {
+              this.amigos.push(...resp.amigos);
+
+            }
+            resolve(resp);
+          }, error => {
+            console.log('Ocurrio un error '+ error);
+            loading.dismiss();
+          });
+        });
+      };
+
+      const getAsync = async() => {
+        const uno = await getFriends();
+        loading.dismiss();
+        return uno;
+      };
+
+      getAsync().then(fin => {
+        // console.log(fin)
+      })
+    }
+
+    friends2 = async() => {
+      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
+      return new Promise(resolve => {
+        this.amigos = [];
+  
+        this.http.get( url ).subscribe((resp: any) => {
+          // console.log(resp.amigos[0]);
+            this.amigos.push(...resp.amigos);
+            // console.log(this.amigos);
+            resolve(resp);
+        }, error => {
+          console.log('ocurrio un error ' + error);
+        });
       });
 
     }

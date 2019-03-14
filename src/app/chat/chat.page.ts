@@ -71,4 +71,10 @@ export class ChatPage implements OnInit {
     alert.present();
   }
 
+ /*  doRefresh(e) {
+    this._us.friends();
+    e.target.complete();
+
+  } */
+
 }

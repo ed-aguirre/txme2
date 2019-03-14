@@ -35,7 +35,7 @@
         </ion-select>
       </ion-item>
 
-      <ion-button [disabled]= "user.matricula.length < 9 || !user.nombre || !user.contra || !user.gen"
+      <ion-button [disabled]= "user.matricula.length < 9 || !user.nombre || user.contra.length < 6 || !user.gen"
       expand='block'
       color='primary'
       (click)="registrar()">
