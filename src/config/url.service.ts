@@ -1,4 +1,6 @@
-export const URL_SERVICIOS = 'https://txme.ml/index.php/';
+export const URL_SERVICIOS = 'http://93.189.89.64/rest/index.php/';
+
+//export const URL_SERVICIOS = 'https://txme.ml/rest/index.php/';
 
 // export const URL_SERVICIOS = 'http://localhost/txme/index.php/';
 

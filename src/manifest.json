@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "Talk2me",
+  "short_name": "Talk2me",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

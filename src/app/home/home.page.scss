@@ -1,6 +1,6 @@
 
 .boton {
-//   background: url(src\assets\img\cora_blanco.png) /* Url de la imagen */ no-repeat center center, #fc739e /* Color del botón */;
+  //background: url(src\assets\img\cora_blanco.png) /* Url de la imagen */ no-repeat center center, #fc739e /* Color del botón */;
   //background-size: 40%; /* Tamaño de la imagen */
   background-color: #c092e6;
   margin-left: auto;
@@ -27,5 +27,12 @@
   .boton .ico {
     height: 94%;
     width: 94%;
+  }
+
+  .boton2 {
+  background: url(src\assets\icon\flor.png) no-repeat center center, #ffff;
+  background-size: 100%;
+  background-color: #ffff;
+  
   }
 

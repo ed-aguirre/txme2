@@ -93,7 +93,12 @@ export class EncuestaPage implements OnInit {
       header: 'Listo',
       subHeader: 'Se ha enviado tu respuesta',
       message: 'Cuando encontremos a tu match se te notificará',
-      buttons: ['OK']
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          location.reload();
+        }
+      }]
     });
 
     await alert.present();

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../providers/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,16 @@ import { UsuarioService } from '../providers/usuario.service';
 })
 export class HomePage {
 
-  constructor( public _us: UsuarioService ) {
+  constructor( public _us: UsuarioService,
+              public router: Router ) {
   }
 
   verificar() {
     this._us.VERIFICAR();
+  }
+
+  go() {
+    this.router.navigate(['trivia']);
   }
 
 

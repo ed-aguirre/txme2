@@ -10,12 +10,6 @@
         <ion-icon [name]="icono"></ion-icon>
         </ion-button>
         
-      <ion-button 
-      fill="clear" 
-      color='dark'
-      (click)="irA()">
-      <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-button>
     </ion-buttons>
   
   </ion-toolbar>
@@ -23,6 +17,15 @@
 </ion-header>
 
 <ion-content>
+    <ion-button
+    expand='block'
+    fill="outline" 
+    color='dark'
+    (click)="irA()">
+    <ion-icon slot='start' name="add-circle-outline"></ion-icon>
+    Crear Noticia
+    </ion-button>
+
     <ng-container padding >
       <ion-searchbar style='display: none' 
       id='barra' 
@@ -39,14 +42,15 @@
     </ion-refresher-content>
   </ion-refresher>
 
-    <div text-center *ngIf="_ns.news.length == 0" class="vacio">
-        <ion-icon name="paper" mode="ios" class="icon_5x"></ion-icon>
-        <br>
-        <p class="text">No hay noticias aún, sé el primero en crear una!</p>
-      </div>   
-
 
       <div id='news1'>
+        <br><br>
+          <div text-center *ngIf="_ns.news.length == 0" class="vacio">
+              <ion-icon name="paper" mode="ios" class="icon_5x"></ion-icon>
+              <br>
+              <p class="text">No hay noticias aún, sé el primero en crear una!</p>
+            </div>  
+
         <ng-container id='news1' *ngFor="let items of _ns.news; let i = index">
 
              <!-- <ion-card *ngIf="i % 11 == 0 && i !=0 ">
@@ -56,8 +60,9 @@
 
            <ion-card >
                <ion-card-header [color]='items.color'>
-                 <ion-card-subtitle>Por: {{items.matricula}} - 
-                  {{ _ns.getTimer(i) | timeAgo | traductor:'esp' }}
+                 <ion-card-subtitle>Por: {{items.matricula}} </ion-card-subtitle>
+                 <ion-card-subtitle>
+                   {{ _ns.getTimer(i) | timeAgo | traductor:'esp' }}
                  </ion-card-subtitle>
                  <ion-item [color]='items.color' lines='none'>
                    <h4 text-wrap> {{items.title}} </h4>
@@ -96,7 +101,7 @@
       </div>
 
       <div style='display: none'  id='news2'>
-          <div text-center *ngIf="_ns.resultado.length == 0" class="vacio">
+          <div text-center *ngIf="_ns.resultado.length == 0" >
               <p class="text">No se ha encontrado resultados</p>
             </div>   
 

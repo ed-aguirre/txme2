@@ -134,11 +134,15 @@ export class NoticiaService {
 
     let url = URL_SERVICIOS + 'Noticia/buscar/' + termino;
 
-    this.resultado = [];
+  
+    // this.resultado = [];
 
     const buscar = () =>  {
       return new Promise(resolve => {
         this.http.get( url ).subscribe((resp:any) => {
+          this.resultado = [];
+
+          //console.log(resp);
           this.resultado.push(...resp.noticias);
           //console.log(this.resultado);
           resolve(resp);

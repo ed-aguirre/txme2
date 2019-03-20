@@ -14,8 +14,12 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
-//import { TimeAgoPipe } from 'time-ago-pipe';
+const config: SocketIoConfig = {
+  url: 'http://93.189.89.64:3000/',
+  options: {}
+};
 
 
 
@@ -27,6 +31,7 @@ import { IonicStorageModule } from '@ionic/storage';
     BrowserModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config),
     IonicModule.forRoot({
       backButtonText: 'Atrás',
       // pageTransition: 'ios-transition',

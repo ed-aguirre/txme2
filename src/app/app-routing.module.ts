@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'chat/:uid/:contact',  loadChildren: './chatnew/chatnew.module#ChatnewPageModule' },
   // { path: 'noticias', loadChildren: './noticias/noticias.module#NoticiasPageModule' },
   { path: 'newnoticia', loadChildren: './newnoticia/newnoticia.module#NewnoticiaPageModule' },
-  { path: 'noticias/:uid', loadChildren: './vernoticia/vernoticia.module#VernoticiaPageModule' }
+  { path: 'noticias/:uid', loadChildren: './vernoticia/vernoticia.module#VernoticiaPageModule' },  { path: 'trivia', loadChildren: './trivia/trivia.module#TriviaPageModule' }
+
 
 
 
