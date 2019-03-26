@@ -1,11 +1,101 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button (click)="close()" ></ion-back-button>
+    </ion-buttons>
     <!-- <ion-title>trivia</ion-title> -->
+    <ion-buttons slot='end'>
+      <ion-button
+      fill='clear'
+      color='dark'>
+        <ion-icon name='contact' mode='md'></ion-icon>
+        {{conectados}}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
 
+    <ion-slides  >
+        <ion-slide *ngFor="let t of trivia;let idx = index" >
+    
+          <ion-card>
+          
+            <ion-card-content>
+                <h5 *ngIf="idx < 9">Pregunta {{idx}} </h5>
+                <h2> {{t.title}} </h2>
+                <ng-container *ngIf="idx < 9">
+                  <ion-list>
+                      <ion-radio-group (ionChange)="valor($event)" >
+                      
+                        <ion-item >
+                          <ion-label text-wrap> {{t.op1}} </ion-label>
+                          <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val1"  ></ion-radio>
+                        </ion-item>
+          
+                        <ion-item>
+                            <ion-label text-wrap> {{t.op2}} </ion-label>
+                            <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val2" ></ion-radio>
+                          </ion-item>
+          
+                          <ion-item>
+                              <ion-label text-wrap> {{t.op3}} </ion-label>
+                              <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val3" ></ion-radio>
+                            </ion-item>
+                            
+                      </ion-radio-group>
+                    </ion-list>
+                </ng-container>
+
+                  <ng-container *ngIf="idx == 9">
   
+                    <p>Y el ganador o ganadores es:</p>
+              
+                   </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+    
+        </ion-slide>
+    
+      </ion-slides>
+
+
+  <div id= 'mensajes'>
+    <ng-container *ngFor="let msj of chat; let i = index">
+      <div class= 'caja' id='id{{i}}'>
+        <p> 
+          <span style='color:rgb(190, 190, 190)'>{{msj.user}}:</span> 
+          {{msj.mensaje}} 
+        </p>
+      </div>
+    </ng-container>
+  </div>
 
 </ion-content>
+
+<ion-footer >
+  <ion-toolbar>
+
+      <ion-item>
+        <ion-textarea 
+        rows="1" 
+        placeholder="Escribe algo aquí"
+        [(ngModel)]="msj" 
+        autofocus
+        maxlength="155"></ion-textarea>
+      </ion-item>
+
+      <ion-buttons slot="end">
+          <ion-button 
+          fill="clear" 
+          color="primary" 
+          [disabled]="inscrito" 
+          (click)="send()">
+              <ion-icon name="send" mode="md"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+          
+  </ion-toolbar>
+</ion-footer>

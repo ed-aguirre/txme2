@@ -39,6 +39,7 @@ export class NoticiasPage implements OnInit {
     $("#barra").animate({width:'toggle'},300);
     this.barra.setFocus();
     $("#news1").slideToggle();
+    $("#crear").slideToggle();
     $("#news2").slideToggle();
 
     if( this.icono === 'search' ){

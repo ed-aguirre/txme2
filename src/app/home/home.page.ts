@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UsuarioService } from '../providers/usuario.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,6 +19,7 @@ export class HomePage {
   }
 
   go() {
+    //this.socket.connect();
     this.router.navigate(['trivia']);
   }
 

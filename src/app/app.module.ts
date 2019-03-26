@@ -17,7 +17,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 const config: SocketIoConfig = {
-  url: 'http://93.189.89.64:3000/',
+  //url: 'http://93.189.89.64:3000/',
+  url: 'http://localhost:6677/',
   options: {}
 };
 
