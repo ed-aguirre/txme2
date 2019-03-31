@@ -3,7 +3,7 @@
     <ion-buttons>
       <ion-back-button (click)="close()" ></ion-back-button>
     </ion-buttons>
-    <!-- <ion-title>trivia</ion-title> -->
+    <ion-title class='subtitle'> {{seg}}:{{mili}} seg </ion-title> 
     <ion-buttons slot='end'>
       <ion-button
       fill='clear'
@@ -30,18 +30,51 @@
                       <ion-radio-group (ionChange)="valor($event)" >
                       
                         <ion-item >
+                          <ng-container *ngIf="numerico && numerico[0] > 0">
+                            <ion-badge slot="start" class="trivia-num">
+                              {{numerico[0]}}
+                            </ion-badge>
+                          </ng-container>
+                          
                           <ion-label text-wrap> {{t.op1}} </ion-label>
-                          <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val1"  ></ion-radio>
+                          <ion-radio mode='md' 
+                          [color]='coloradio'
+                          (ionBlur)="cantidad(t.val1)"
+                          slot="start" 
+                          [disabled]='cambio' 
+                          [value]="t.val1">
+                          </ion-radio>
                         </ion-item>
           
                         <ion-item>
+                            <ng-container *ngIf="numerico && numerico[1] > 0">
+                                <ion-badge slot="start" class="trivia-num">
+                                  {{numerico[1]}}
+                                </ion-badge>
+                              </ng-container>
                             <ion-label text-wrap> {{t.op2}} </ion-label>
-                            <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val2" ></ion-radio>
+                            <ion-radio mode='md' 
+                            [color]='coloradio'
+                            (ionBlur)="cantidad(t.val2)"
+                            slot="start" 
+                            [disabled]='cambio' 
+                            [value]="t.val2" ></ion-radio>
                           </ion-item>
           
                           <ion-item>
+                              <ng-container *ngIf="numerico && numerico[2] > 0">
+                                  <ion-badge slot="start" class="trivia-num">
+                                    {{numerico[2]}}
+                                  </ion-badge>
+                              </ng-container>
+
                               <ion-label text-wrap> {{t.op3}} </ion-label>
-                              <ion-radio mode='md' slot="start" [disabled]='cambio' [value]="t.val3" ></ion-radio>
+                              <ion-radio mode='md' 
+                              [color]='coloradio'
+                              (ionBlur)="cantidad(t.val3)"
+                              slot="start" 
+                              [disabled]='cambio' 
+                              [value]="t.val3" ></ion-radio>
                             </ion-item>
                             
                       </ion-radio-group>
