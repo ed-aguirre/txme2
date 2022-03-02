@@ -1,0 +1,9 @@
+txtme errores:
+1.- Error in src/global.scss
+R.- se uso comando npm install --save-dev node-sass
+
+2.- Node.js Sass version 7.0.0 is incompatible with ^4.0.0 
+R.-primero remover sass npm uninstall node-sass y despues npm i -D sass
+
+3.- estilos en home.page.scss
+R.- classe .boton2: background: url('../../assets/icon/flor.png')
