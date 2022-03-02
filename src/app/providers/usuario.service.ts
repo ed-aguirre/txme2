@@ -242,7 +242,7 @@ export class UsuarioService {
 
       const url = URL_SERVICIOS + 'Encuesta/verificar';
 
-      const ver = () => {
+      /* const ver = () => {
         return new Promise(resolve =>
           this.http.post(url, {
             token: this.user_data['token']
@@ -258,7 +258,7 @@ export class UsuarioService {
             loading.dismiss();
           })
         );
-      };
+      }; */
 
       const vamonos = (band: any = {}) => {
         // console.log(band);
@@ -270,8 +270,8 @@ export class UsuarioService {
       };
 
       const VERIFIasync = async() => {
-        const uno = await ver();
-        const dos = await vamonos(uno);
+       /*  const uno = await ver(); */
+        const dos = await vamonos({});
         loading.dismiss();
         return dos;
       };
@@ -289,7 +289,7 @@ export class UsuarioService {
 
       this.amigos = [];
 
-      const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
+      /* const url = URL_SERVICIOS + 'Amigos/' + this.user_data['token'];
 
       const getFriends = () => {
         return new Promise(resolve =>{
@@ -306,12 +306,12 @@ export class UsuarioService {
             loading.dismiss();
           });
         });
-      };
+      }; */
 
       const getAsync = async() => {
-        const uno = await getFriends();
+        /* const uno = await getFriends(); */
         loading.dismiss();
-        return uno;
+        return {};
       };
 
       getAsync().then(fin => {
