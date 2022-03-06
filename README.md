@@ -1,7 +1,7 @@
 <h1 align="center">talk2me</h1>
 <h4 align="center">Instant Messaging PWA made in Ionic 4.</h4>
 <p align='center'>
-  <img src='https://img.shields.io/snyk/vulnerabilities/github/ed-aguirre/txme2?color=green&logoColor=green')>
+  <!--<img src='https://img.shields.io/snyk/vulnerabilities/github/ed-aguirre/txme2?color=green&logoColor=green')> -->
   <img src='https://img.shields.io/github/repo-size/ed-aguirre/txme2?color=orange')>
   <img src='https://img.shields.io/badge/ionic-4.12.0-blue')>
 </p>
@@ -38,7 +38,7 @@ little quiz, then the app will match you with another person whose has select th
      width='20%'>
 
 ## Direct messages in real time
-<p align='left'>Real time text message by sockets.io! Each chat has a limit of text message, you must be careful about what you say and what you reply!</p>
+<p align='left'>Real time text message with <a href='https://socket.io/'>socket.io</a>! Each chat has a limit of text message, you must be careful about what you say and what you reply!</p>
 <img align='left' src="https://github.com/ed-aguirre/txme2/blob/master/src/assets/ss/chat_ss.png"
      width='20%'>
 <img src="https://github.com/ed-aguirre/txme2/blob/master/src/assets/ss/limit_ss.png"
