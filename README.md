@@ -1,5 +1,5 @@
 <h1 align="center">talk2me</h1>
-<h4 align="center">Instant Messaging PWA made in Ionic 4.</h4>
+<h4 align="center">Instant Messaging PWA made with Ionic 4.</h4>
 <p align='center'>
   <!--<img src='https://img.shields.io/snyk/vulnerabilities/github/ed-aguirre/txme2?color=green&logoColor=green')> -->
   <img src='https://img.shields.io/github/repo-size/ed-aguirre/txme2?color=orange')>
